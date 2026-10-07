@@ -1,0 +1,47 @@
+{
+  "currentSeason": "2026",
+  "seasons": [
+    {
+      "year": "2026",
+      "date": "2026-07-10",
+      "dateLabel": "10.07.2026",
+      "venue": "Скоро объявим",
+      "status": "Анонс сезона",
+      "regulationsUrl": null,
+      "bracketAnnouncement": "Турнирная сетка появится после 10 октября",
+      "disciplines": [
+        {
+          "id": "dota2",
+          "name": "Dota 2",
+          "teams": [
+            { "id": "dota-demo-1", "name": "Команда 01", "demo": true, "image": "assets/roster-3.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] },
+            { "id": "dota-demo-2", "name": "Команда 02", "demo": true, "image": "assets/roster-3.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] }
+          ],
+          "bracket": [],
+          "matches": [],
+          "winner": null
+        },
+        {
+          "id": "cs2",
+          "name": "CS2",
+          "teams": [
+            { "id": "cs-demo-1", "name": "Команда 03", "demo": true, "image": "assets/roster-1.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] },
+            { "id": "cs-demo-2", "name": "Команда 04", "demo": true, "image": "assets/roster-2.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] }
+          ],
+          "bracket": [],
+          "matches": [],
+          "winner": null
+        }
+      ],
+      "media": [],
+      "organizers": [
+        { "role": "Организатор", "name": "Отделение информационных технологий и программирования" },
+        { "role": "Руководитель", "name": null },
+        { "role": "Координатор", "name": null },
+        { "role": "Судьи", "name": null },
+        { "role": "Медиа", "name": null }
+      ],
+      "partners": []
+    }
+  ]
+}
