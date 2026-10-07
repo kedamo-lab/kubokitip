@@ -80,6 +80,7 @@ function renderSeason(year) {
   $('#regulations-note').hidden = Boolean(regulationsUrl);
   if (regulationsUrl) { $('#regulations').href = regulationsUrl; $('#regulations').target = '_blank'; $('#regulations').rel = 'noopener'; }
   renderTeams(); renderBracket(); renderSchedule(); renderResults(); renderMedia(); renderWinners(); renderOrganizers();
+  document.dispatchEvent(new Event('cup:content-updated'));
 }
 
 document.querySelectorAll('[data-tabs]').forEach((tablist) => {
@@ -87,6 +88,7 @@ document.querySelectorAll('[data-tabs]').forEach((tablist) => {
     selected[tablist.dataset.tabs] = tab.dataset.game;
     tablist.querySelectorAll('[role=tab]').forEach((button) => { const active = button === tab; button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1; });
     if (season) (tablist.dataset.tabs === 'teams' ? renderTeams : renderBracket)();
+    document.dispatchEvent(new Event('cup:content-updated'));
   };
   tablist.addEventListener('click', (event) => { const tab = event.target.closest('[role=tab]'); if (tab) activate(tab); });
   tablist.addEventListener('keydown', (event) => {
@@ -100,6 +102,7 @@ document.querySelectorAll('[data-schedule]').forEach((button) => button.addEvent
   selected.schedule = button.dataset.schedule;
   document.querySelectorAll('[data-schedule]').forEach((node) => { const active = node === button; node.classList.toggle('active',active); node.setAttribute('aria-pressed',String(active)); });
   if (season) renderSchedule();
+  document.dispatchEvent(new Event('cup:content-updated'));
 }));
 const closeMenu = () => { $('.menu-toggle').setAttribute('aria-expanded','false'); $('#mobile-nav').hidden = true; };
 $('.menu-toggle').addEventListener('click', () => { const open = $('.menu-toggle').getAttribute('aria-expanded') !== 'true'; $('.menu-toggle').setAttribute('aria-expanded',String(open)); $('#mobile-nav').hidden = !open; });
