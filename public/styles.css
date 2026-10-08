@@ -21,3 +21,10 @@
 .hero-logo-art .hero-sheen{display:none}
 .hero .button-lime{justify-content:center;min-width:180px}
 .section-label-end{justify-content:flex-end}
+
+/* Temporary shortcut to the site editor. */
+.editor-shortcut{position:fixed;right:max(24px,env(safe-area-inset-right));bottom:max(24px,env(safe-area-inset-bottom));z-index:40;display:grid;place-items:center;width:54px;height:54px;border:1px solid var(--line);border-radius:18px;background:var(--surface);color:var(--lime);box-shadow:0 8px 28px #0006;transition:transform .2s,border-color .2s,box-shadow .2s}
+.editor-shortcut svg{pointer-events:none}
+@media(hover:hover){.editor-shortcut:hover{transform:translateY(-3px);border-color:var(--lime);box-shadow:0 8px 28px #0006,0 0 18px color-mix(in srgb,var(--lime) 12%,transparent)}}
+.editor-shortcut:active{transform:scale(.95)}
+@media(max-width:800px){.editor-shortcut{right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));width:48px;height:48px;border-radius:16px}}
