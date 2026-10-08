@@ -8,7 +8,8 @@
       "format": "svg",
       "width": 792,
       "height": 327,
-      "slot": "header / footer"
+      "slot": "header / footer / admin",
+      "background": "transparent; removed two background rectangles, logo paths unchanged"
     },
     {
       "file": "mark.svg",
