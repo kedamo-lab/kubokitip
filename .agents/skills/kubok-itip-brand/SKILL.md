@@ -5,7 +5,7 @@ description: Применять брендбук Figma при изменении
 
 # Бренд Кубка ИТиП
 
-Корень сайта — каталог с `.openai/hosting.json` и `dist/index.html`; в текущем рабочем пространстве это `work/kubok-itip`.
+Корень сайта — каталог с `.openai/hosting.json` и `public/index.html`; в текущем рабочем пространстве это `work/kubok-itip`.
 
 Использовать доступный навык `figma:figma-design-to-code` перед запросом контекста дизайна. Брендбук: https://www.figma.com/design/eg6I7lfpbwJdk0UaosOwl9/?node-id=23-199.
 
@@ -13,4 +13,4 @@ description: Применять брендбук Figma при изменении
 
 Цвета: #E4FD2A, #0C4652, чёрный и белый. Шрифты брендбука — Druk Text Wide Cyr и TT Travels; подключать оригинальные веб-файлы, когда пользователь их предоставит.
 
-Сохранять статический HTML/CSS/JavaScript и архив сезонов в `dist/data/seasons.json`. Для публикации применять доступный `sites:sites` с существующим project_id и аудиторией из `.openai/hosting.json`. Проверять затронутые блоки на ПК и телефоне.
+Сохранять HTML/CSS/JavaScript в `public/` и архив через `/admin`. Начальные настройки — `public/data/seasons.json`, живые данные — D1 или `.local/content.json`; файлы — R2 или `.local/uploads/`. Публиковать через `sites:sites` с существующим project_id и закрытой аудиторией владельца. Проверять ПК и телефон.

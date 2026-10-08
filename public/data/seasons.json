@@ -1,0 +1,342 @@
+{
+  "currentSeason": "2026",
+  "seasons": [
+    {
+      "year": "2026",
+      "date": "2026-07-10",
+      "dateLabel": "10.07.2026",
+      "venue": "Скоро объявим",
+      "status": "Анонс сезона",
+      "regulationsUrl": null,
+      "bracketAnnouncement": "Турнирная сетка появится после 10 октября",
+      "disciplines": [
+        {
+          "id": "dota2",
+          "name": "Dota 2",
+          "teams": [
+            {
+              "id": "dota-demo-1",
+              "name": "Команда 01",
+              "demo": true,
+              "image": "assets/roster-3.png",
+              "players": [
+                "Игрок 01",
+                "Игрок 02",
+                "Игрок 03",
+                "Игрок 04",
+                "Игрок 05"
+              ]
+            },
+            {
+              "id": "dota-demo-2",
+              "name": "Команда 02",
+              "demo": true,
+              "image": "assets/roster-3.png",
+              "players": [
+                "Игрок 01",
+                "Игрок 02",
+                "Игрок 03",
+                "Игрок 04",
+                "Игрок 05"
+              ]
+            }
+          ],
+          "bracket": [],
+          "matches": [],
+          "winner": null,
+          "caption": "Пять игроков. Один трон."
+        },
+        {
+          "id": "cs2",
+          "name": "CS2",
+          "teams": [
+            {
+              "id": "cs-demo-1",
+              "name": "Команда 03",
+              "demo": true,
+              "image": "assets/roster-1.png",
+              "players": [
+                "Игрок 01",
+                "Игрок 02",
+                "Игрок 03",
+                "Игрок 04",
+                "Игрок 05"
+              ]
+            },
+            {
+              "id": "cs-demo-2",
+              "name": "Команда 04",
+              "demo": true,
+              "image": "assets/roster-2.png",
+              "players": [
+                "Игрок 01",
+                "Игрок 02",
+                "Игрок 03",
+                "Игрок 04",
+                "Игрок 05"
+              ]
+            }
+          ],
+          "bracket": [],
+          "matches": [],
+          "winner": null,
+          "caption": "Пять игроков. Одна цель."
+        }
+      ],
+      "media": [],
+      "organizers": [
+        {
+          "role": "Организатор",
+          "name": "Отделение информационных технологий и программирования"
+        },
+        {
+          "role": "Руководитель",
+          "name": null
+        },
+        {
+          "role": "Координатор",
+          "name": null
+        },
+        {
+          "role": "Судьи",
+          "name": null
+        },
+        {
+          "role": "Медиа",
+          "name": null
+        }
+      ],
+      "partners": [],
+      "order": [
+        "hero",
+        "about",
+        "teams",
+        "bracket",
+        "schedule",
+        "results",
+        "media",
+        "winners",
+        "organizers",
+        "closing"
+      ],
+      "content": {
+        "hero": {
+          "visible": true,
+          "eyebrow": "ЧЕМПИОНАТ ОТДЕЛЕНИЯ",
+          "tagline": "Твоя команда.\nТвоя игра. Твой кубок.",
+          "format": "5 × 5",
+          "button": "К командам",
+          "buttonUrl": "#teams",
+          "dateLabel": "ДАТА ПРОВЕДЕНИЯ",
+          "venueLabel": "МЕСТО ПРОВЕДЕНИЯ",
+          "seasonLabel": "СЕЗОН"
+        },
+        "about": {
+          "visible": true,
+          "title": "Встречаемся\nна одной карте.",
+          "text": "Кубок ИТиП — ежегодный чемпионат отделения информационных технологий и программирования по Dota 2 и CS2.",
+          "secondaryText": "Собираем команды отделения, чтобы вместе пройти путь от первых матчей до финала. Две дисциплины. Командная игра. Один Кубок ИТиП.",
+          "regulationsLabel": "Регламент",
+          "regulationsNote": "Документ готовится к публикации"
+        },
+        "teams": {
+          "visible": true,
+          "title": "В игре — команды.",
+          "intro": "Составы, лица и командный дух.",
+          "label": "СЕЗОН {year}",
+          "demoNote": "Пока здесь тестовые ростеры из брендбука. После фотосессии появятся реальные команды и составы.",
+          "demoBadge": "МАКЕТ",
+          "rosterLabel": "СОСТАВ КОМАНДЫ",
+          "empty": "Участники появятся после подтверждения составов."
+        },
+        "bracket": {
+          "visible": true,
+          "title": "Турнирная сетка.",
+          "label": "РАСКЛАД СИЛ",
+          "emptyText": "Здесь будут пары команд и результаты матчей.",
+          "soon": "СКОРО",
+          "unknownTeam": "Участник определится"
+        },
+        "schedule": {
+          "visible": true,
+          "title": "Время играть.",
+          "label": "НЕ ПРОПУСТИ СВОЮ ИГРУ",
+          "all": "Все матчи",
+          "columns": [
+            "Дата",
+            "Время",
+            "Дисциплина",
+            "Матч",
+            "Этап"
+          ],
+          "emptyTitle": "Расписание готовится.",
+          "emptyText": "Даты, время и пары команд появятся после жеребьёвки.",
+          "unknown": "Уточняется"
+        },
+        "results": {
+          "visible": true,
+          "title": "Кто идёт дальше.",
+          "label": "ИГРА РЕШАЕТ",
+          "subtitle": "Итоги завершённых матчей",
+          "completed": "ЗАВЕРШЁННЫЕ МАТЧИ",
+          "waiting": "ОЖИДАЕМ МАТЧИ",
+          "empty": "Результаты появятся\nпосле завершения игр.",
+          "advanced": "Дальше проходит"
+        },
+        "media": {
+          "visible": true,
+          "title": "Моменты Кубка.",
+          "label": "БОЛЬШЕ, ЧЕМ ИГРА",
+          "subtitle": "Фото / Видео",
+          "intro": "Эмоции, которые не помещаются в счёт матча.",
+          "note": "Фотографии и видео появятся после отборочных матчей и финала.",
+          "background": "assets/banner.png",
+          "placeholders": [
+            {
+              "title": "В кадре — команда.",
+              "caption": "Фотографии с турнира / скоро",
+              "icon": "↗"
+            },
+            {
+              "title": "Лучшие моменты.",
+              "caption": "Видео с турнира / скоро",
+              "icon": "▷"
+            },
+            {
+              "title": "Эмоции финала.",
+              "caption": "После решающей игры",
+              "icon": "✦"
+            }
+          ]
+        },
+        "winners": {
+          "visible": true,
+          "title": "Этот Кубок — ваш.",
+          "label": "ПОБЕДИТЕЛИ",
+          "badge": "ПОБЕДИТЕЛЬ",
+          "showBeforeFinal": false
+        },
+        "organizers": {
+          "visible": true,
+          "title": "Делаем Кубок вместе.",
+          "label": "КОМАНДА ЗА КАДРОМ",
+          "pending": "Скоро представим",
+          "partnersTitle": "Партнёры"
+        },
+        "closing": {
+          "visible": true,
+          "text": "До встречи\nв игре.",
+          "button": "К началу",
+          "buttonUrl": "#top"
+        }
+      }
+    }
+  ],
+  "schemaVersion": 1,
+  "site": {
+    "name": "Кубок ИТиП",
+    "description": "Кубок ИТиП — ежегодный чемпионат отделения информационных технологий и программирования по Dota 2 и CS2. Команды, расписание, турнирная сетка и медиа.",
+    "titleTemplate": "{name} {year} — {games}",
+    "logos": {
+      "header": "assets/logo.svg",
+      "hero": "assets/logo-combined.svg",
+      "mark": "assets/mark.svg",
+      "footer": "assets/logo.svg",
+      "closing": "assets/mark.svg",
+      "favicon": "assets/mark.svg"
+    },
+    "colors": {
+      "accent": "#E4FD2A",
+      "secondary": "#0C4652",
+      "background": "#080A0B",
+      "surface": "#101416",
+      "text": "#F5F6F2",
+      "muted": "#9AA5A8",
+      "border": "#293033",
+      "header": "#080A0B"
+    },
+    "fonts": {
+      "body": "'TT Travels',Arial,sans-serif",
+      "heading": "'Druk Text Wide Cyr','Arial Black',Arial,sans-serif",
+      "bodyFile": "",
+      "headingFile": ""
+    },
+    "layout": {
+      "containerWidth": 1280,
+      "headerWidth": 1180,
+      "headerRadius": 27,
+      "sectionSpacing": 88,
+      "heroLogoWidth": 440
+    },
+    "motion": {
+      "enabled": true,
+      "speed": 1,
+      "tickerSeconds": 32,
+      "floatSeconds": 7,
+      "progress": true
+    },
+    "header": {
+      "seasonLabel": "СЕЗОН",
+      "currentLabel": "Текущий сезон",
+      "archiveLabel": "Архив сезона",
+      "links": [
+        {
+          "label": "О турнире",
+          "target": "about",
+          "desktop": true,
+          "mobile": true
+        },
+        {
+          "label": "Команды",
+          "target": "teams",
+          "desktop": true,
+          "mobile": true
+        },
+        {
+          "label": "Сетка",
+          "target": "bracket",
+          "desktop": true,
+          "mobile": true
+        },
+        {
+          "label": "Расписание",
+          "target": "schedule",
+          "desktop": true,
+          "mobile": true
+        },
+        {
+          "label": "Результаты",
+          "target": "results",
+          "desktop": false,
+          "mobile": true
+        },
+        {
+          "label": "Медиа",
+          "target": "media",
+          "desktop": true,
+          "mobile": true
+        },
+        {
+          "label": "Организаторы",
+          "target": "organizers",
+          "desktop": false,
+          "mobile": true
+        }
+      ]
+    },
+    "footer": {
+      "department": "Отделение информационных технологий\nи программирования",
+      "motto": "Ежегодно. Вместе.",
+      "links": []
+    },
+    "ticker": {
+      "enabled": true,
+      "items": [
+        "DOTA 2",
+        "CS2",
+        "КУБОК ИТиП"
+      ]
+    },
+    "customCSS": ""
+  }
+}

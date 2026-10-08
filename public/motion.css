@@ -1,0 +1,142 @@
+:root{--motion-ease:cubic-bezier(.16,1,.3,1);--scroll-progress:0}
+.header::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--lime);transform:scaleX(var(--scroll-progress));transform-origin:left;pointer-events:none;box-shadow:0 0 14px color-mix(in srgb,var(--lime) 39.61%,transparent)}
+.header-progress{display:none;pointer-events:none}
+@media(min-width:801px){
+  .header{--header-height:82px;top:18px;width:min(1180px,calc(100% - 72px));margin:18px auto 0;border:1px solid var(--line);border-radius:calc(var(--header-height) * .27);box-shadow:0 12px 42px #0004}
+  .header-inner{width:100%;height:var(--header-height);padding-inline:26px;gap:24px}
+  .header::after{display:none}
+  .header-progress{display:block;position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .header-progress-value{fill:none;stroke:var(--lime);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--scroll-progress));filter:drop-shadow(0 0 5px color-mix(in srgb,var(--lime) 31.37%,transparent))}
+}
+.desktop-nav a{position:relative}
+.desktop-nav a::after{content:'';position:absolute;left:0;right:0;bottom:-7px;height:1px;background:var(--lime);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--motion-ease)}
+.desktop-nav a:hover::after,.desktop-nav a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+.button{position:relative;overflow:hidden;transform:translate3d(var(--button-x,0px),var(--button-y,0px),0);transition:transform .35s var(--motion-ease),background .25s,color .25s,box-shadow .35s}
+.button>span{transition:transform .4s var(--motion-ease)}
+.button:hover>span{transform:translate(3px,-3px)}
+.button-dark:hover>span{transform:translateY(-4px)}
+.button-lime::before,.button-dark::before{content:'';position:absolute;top:-60%;bottom:-60%;left:-50%;width:30%;background:linear-gradient(90deg,transparent,#fff5,transparent);transform:skewX(-22deg) translateX(-250%);pointer-events:none}
+.button-lime:hover::before,.button-dark:hover::before{animation:button-shine .7s var(--motion-ease)}
+.button-lime:hover{box-shadow:0 7px 34px color-mix(in srgb,var(--lime) 12.55%,transparent)}
+.tabs button,.filters button{transition:background .25s,color .25s,border-color .25s,transform .25s var(--motion-ease)}
+.tabs button:hover,.filters button:hover{transform:translateY(-2px)}
+.menu-toggle span{transition:transform .35s var(--motion-ease)}
+.menu-toggle[aria-expanded=true] span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.menu-toggle[aria-expanded=true] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.motion-active .mobile-nav:not([hidden]){animation:menu-reveal .4s var(--motion-ease) backwards}
+
+/* Entry choreography keeps the original brand artwork intact. */
+.motion-active .hero .eyebrow{animation:hero-rise .85s var(--motion-ease) .08s backwards}
+.motion-active .hero h1{animation:logo-reveal 1.15s var(--motion-ease) .16s backwards}
+.motion-active .hero-tagline{animation:hero-rise 1s var(--motion-ease) .32s backwards}
+.motion-active .game-tags{animation:hero-rise .9s var(--motion-ease) .45s backwards}
+.motion-active .hero-copy>.button{animation:hero-rise .9s var(--motion-ease) .56s backwards}
+.motion-active .hero-meta>div{animation:hero-rise .85s var(--motion-ease) .68s backwards}
+.motion-active .hero-meta>div:nth-child(2){animation-delay:.78s}
+.motion-active .hero-meta>div:nth-child(3){animation-delay:.88s}
+.hero-art{--hero-x:0px;--hero-y:0px;--hero-rx:0deg;--hero-ry:0deg;--spot-x:50%;--spot-y:50%;transform:perspective(1200px) rotateX(var(--hero-rx)) rotateY(var(--hero-ry));transition:transform .65s var(--motion-ease),box-shadow .65s;isolation:isolate}
+.motion-active .hero-art{animation:banner-reveal 1.35s var(--motion-ease) .23s backwards}
+.motion-active .hero-art>img{animation:emblem-float 7s ease-in-out infinite;will-change:transform}
+.hero-art::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at var(--spot-x) var(--spot-y),color-mix(in srgb,var(--lime) 12.55%,transparent),transparent 58%);opacity:0;transition:opacity .6s}
+.hero-art:hover::before{opacity:1}
+.hero-art:hover{box-shadow:0 26px 80px color-mix(in srgb,var(--teal) 25.10%,transparent)}
+.hero-art .art-corner,.hero-art .art-index{z-index:3}
+.hero-sheen{position:absolute;top:-40%;left:-80%;height:180%;width:65%;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--lime) 10.98%,transparent),transparent);z-index:2;pointer-events:none;opacity:0;transform:translateX(-40%) rotate(18deg)}
+.motion-active .hero-sheen{animation:banner-sheen 11s ease-in-out 1s infinite}
+.motion-active .art-corner,.motion-active .art-index{animation:hero-rise .8s var(--motion-ease) 1s backwards}
+.motion-active .hero .dot{animation:status-breathe 3.5s ease-in-out 1.5s infinite}
+
+.ticker{contain:paint}
+.ticker>.ticker-track{display:flex;width:max-content;text-align:left;will-change:transform;line-height:2.4}
+.ticker-group{display:flex;align-items:center;flex-shrink:0;white-space:nowrap}
+.ticker .ticker-word{margin:0;font:inherit;display:inline-block}
+.ticker .ticker-star{display:inline-block;font-family:Arial,sans-serif}
+.motion-active .ticker-track{animation:ticker-travel 32s linear infinite}
+.motion-active .ticker-star{animation:star-turn 16s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+
+/* Each block is revealed once; rerendered season panels are observed again. */
+.motion-active .motion-reveal{transition:opacity .85s var(--motion-ease) var(--reveal-delay,0ms),transform .95s var(--motion-ease) var(--reveal-delay,0ms),clip-path .95s var(--motion-ease) var(--reveal-delay,0ms),border-color .3s;transform:translate3d(0,0,0);opacity:1}
+.motion-active .motion-reveal:not(.motion-visible){opacity:0;transform:translate3d(0,38px,0);clip-path:inset(0 0 12% 0)}
+.motion-active .motion-reveal.motion-visible{clip-path:inset(-90px -90px -90px -90px)}
+.motion-active .section-heading.motion-reveal:not(.motion-visible){transform:translate3d(0,28px,0);clip-path:inset(0)}
+.motion-active .section-heading.motion-reveal h2{transition:clip-path .95s var(--motion-ease) var(--reveal-delay,0ms);clip-path:inset(0)}
+.motion-active .section-heading.motion-reveal:not(.motion-visible) h2{clip-path:inset(0 0 100% 0)}
+.section-label.motion-visible .small-mark{animation:star-turn 16s linear infinite}
+.team-card,.media-placeholder,.result-card{--tilt-x:0deg;--tilt-y:0deg;--spot-x:50%;--spot-y:50%;--card-lift:0px;position:relative}
+.motion-active .motion-tilt.motion-visible{transform:perspective(1100px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0,var(--card-lift),0);transition:transform .5s var(--motion-ease),opacity .85s var(--motion-ease) var(--reveal-delay),clip-path .95s var(--motion-ease) var(--reveal-delay),border-color .4s,box-shadow .5s}
+.motion-tilt::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:4;background:radial-gradient(450px circle at var(--spot-x) var(--spot-y),color-mix(in srgb,var(--lime) 5.88%,transparent),transparent 70%);border:1px solid color-mix(in srgb,var(--lime) 0.00%,transparent);opacity:0;transition:opacity .4s,border-color .4s}
+.motion-tilt:hover::after{opacity:1;border-color:color-mix(in srgb,var(--lime) 37.65%,transparent)}
+.motion-tilt:hover{--card-lift:-5px;box-shadow:0 24px 55px #0005}
+.motion-active .team-card .team-art img{transition:transform 1.2s var(--motion-ease)}
+.motion-active .team-card:hover .team-art img{transform:scale(1.045)}
+.motion-active .closing-inner.motion-visible>img{animation:trophy-float 6s ease-in-out infinite}
+.motion-paused .ticker-track,.motion-paused .ticker-star,.motion-paused .hero-art>img,.motion-paused .hero-sheen,.motion-paused .hero .dot,.motion-paused .small-mark,.motion-paused .closing-inner>img,.motion-paused .motion-bars i{animation-play-state:paused!important}
+
+.motion-toggle{flex-shrink:0;display:grid;place-items:center;width:36px;height:36px;margin-left:auto;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--muted);cursor:pointer;transition:border-color .3s,color .3s}
+.motion-toggle[hidden]{display:none}
+.motion-toggle[aria-pressed=true]{color:var(--lime);border-color:color-mix(in srgb,var(--lime) 37.65%,transparent)}
+.motion-toggle:hover{border-color:var(--lime)}
+.motion-bars{display:flex;align-items:center;gap:3px;height:14px}
+.motion-bars i{display:block;width:2px;height:6px;background:currentColor;border-radius:2px}
+.motion-bars i:nth-child(2){height:14px}
+.motion-active .motion-bars i{animation:motion-wave 1.2s ease-in-out infinite alternate}
+.motion-active .motion-bars i:nth-child(2){animation-delay:-.4s}
+.motion-active .motion-bars i:nth-child(3){animation-delay:-.8s}
+.header .season-control{margin-left:0}
+.hero-logo-art::before{display:none}
+.hero-logo-art>img{transition:filter .65s var(--motion-ease)}
+.hero-logo-art:hover>img{filter:drop-shadow(0 0 28px color-mix(in srgb,var(--lime) 18.04%,transparent)) drop-shadow(0 0 64px color-mix(in srgb,var(--teal) 31.37%,transparent))}
+.hero-logo-art:hover{box-shadow:none}
+
+/* The native select remains available until the styled control is ready. */
+.season-control.season-enhanced{--season-width:136px;--season-button-height:46px;width:var(--season-width);height:var(--season-button-height);display:block;border:0}
+.season-enhanced .season-shell{position:absolute;top:0;left:0;z-index:25;width:100%;overflow:hidden;border:1px solid #294044;border-radius:13px;background:rgba(8,10,11,.96);box-shadow:inset 0 1px 0 #ffffff08;transition:border-color .3s,box-shadow .35s}
+.season-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:calc(var(--season-button-height) - 2px);padding:0 14px;border:0;border-radius:0;color:var(--white);background:transparent;cursor:pointer}
+.season-trigger[hidden]{display:none}
+.season-trigger-copy{display:flex;align-items:baseline;gap:8px}
+.season-trigger-label{font-size:9px;font-weight:600;letter-spacing:.08em;color:#91a7a9}
+.season-trigger strong{font-size:15px;letter-spacing:.01em}
+.season-chevron{flex-shrink:0;width:6px;height:6px;border-right:1.5px solid var(--lime);border-bottom:1.5px solid var(--lime);transform:rotate(45deg) translateY(-2px);transition:transform .3s var(--motion-ease)}
+.season-enhanced .season-shell:hover,.season-enhanced .season-shell:focus-within,.season-open .season-shell{border-color:color-mix(in srgb,var(--lime) 50.20%,transparent);box-shadow:0 12px 30px #0005,0 0 20px color-mix(in srgb,var(--lime) 3.14%,transparent),inset 0 1px 0 #ffffff0a}
+.season-open .season-chevron{transform:rotate(225deg) translate(-1px,-1px)}
+.season-popover{width:100%;height:0;overflow:hidden;opacity:0;visibility:hidden;transition:height .45s var(--motion-ease),opacity .3s,visibility .45s}
+.season-open .season-popover{height:var(--season-menu-height);opacity:1;visibility:visible}
+.season-popover-inner{padding:8px;border-top:1px solid color-mix(in srgb,var(--lime) 9.41%,transparent)}
+.season-popover-inner #season-list{transform:translateY(-6px);transition:transform .45s var(--motion-ease)}
+.season-open #season-list{transform:translateY(0)}
+.season-popover[hidden]{display:none}
+.season-option{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;padding:10px 8px;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--white);text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+.season-option>span:first-child{display:grid;gap:4px}
+.season-option strong{font-size:17px;letter-spacing:.02em}
+.season-option small{font-size:9px;color:#91a7a9;white-space:nowrap}
+.season-option:hover,.season-option:focus-visible{background:#ffffff08}
+.season-option[aria-selected=true]{background:color-mix(in srgb,var(--lime) 4.71%,transparent);border-color:color-mix(in srgb,var(--lime) 18.82%,transparent)}
+.season-option[aria-selected=true] strong{color:var(--lime)}
+.season-check{font-size:16px;color:var(--lime);opacity:0}
+.season-option[aria-selected=true] .season-check{opacity:1}
+@media(min-width:801px) and (max-width:1100px){.header-inner{gap:20px;padding-inline:20px}}
+@media(max-width:600px){.season-control.season-enhanced{--season-width:110px;--season-button-height:38px}.season-enhanced .season-shell{border-radius:11px}.season-trigger{padding-inline:11px;gap:11px}.season-trigger-copy{gap:6px}.season-trigger-label{font-size:8px}.season-trigger strong{font-size:13px}.season-option small{display:none}.season-option strong{font-size:14px}.season-option{padding:9px 7px}}
+@media(max-width:360px){.season-control.season-enhanced{--season-width:84px}.season-trigger{padding-inline:9px;gap:9px}.season-trigger-copy{flex-direction:column;align-items:flex-start;gap:3px}.season-trigger-label{line-height:1}.season-trigger strong{line-height:1.2}.season-popover-inner{padding:6px}.season-option{padding:8px 5px}}
+
+@keyframes hero-rise{from{opacity:0;transform:translate3d(0,25px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes logo-reveal{from{opacity:0;clip-path:inset(100% 0 0 0);transform:translate3d(0,45px,0) scale(.97)}to{opacity:1;clip-path:inset(0 0 0 0);transform:translate3d(0,0,0) scale(1)}}
+@keyframes banner-reveal{from{opacity:0;clip-path:inset(0 0 100% 0);transform:perspective(1200px) rotateX(4deg) rotateY(-7deg) translate3d(0,50px,0)}to{opacity:1;clip-path:inset(0 0 0 0);transform:perspective(1200px) rotateX(0deg) rotateY(0deg) translate3d(0,0,0)}}
+@keyframes banner-breathe{from{transform:translate3d(var(--hero-x),var(--hero-y),0) scale(1)}to{transform:translate3d(var(--hero-x),var(--hero-y),0) scale(1.02)}}
+@keyframes emblem-float{0%,100%{transform:translate3d(var(--hero-x),var(--hero-y),0) rotate(-1.5deg)}50%{transform:translate3d(var(--hero-x),calc(var(--hero-y) - 14px),0) rotate(1.5deg)}}
+@keyframes motion-wave{to{transform:scaleY(.35)}}
+@keyframes banner-sheen{0%,20%{opacity:0;transform:translateX(-40%) rotate(18deg)}32%{opacity:1}52%,100%{opacity:0;transform:translateX(380%) rotate(18deg)}}
+@keyframes ticker-travel{to{transform:translate3d(-50%,0,0)}}
+@keyframes star-turn{to{transform:rotate(360deg)}}
+@keyframes status-breathe{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--lime) 0.00%,transparent)}50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--lime) 7.84%,transparent)}}
+@keyframes button-shine{to{transform:skewX(-22deg) translateX(750%)}}
+@keyframes menu-reveal{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes trophy-float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+@media(hover:none),(pointer:coarse){.motion-tilt:hover{--card-lift:0px;box-shadow:none}.motion-tilt::after,.hero-art::before{display:none}.hero-art{transform:none}.button{transform:none}.motion-active .motion-tilt.motion-visible{transform:none}.motion-active .hero-art>img{animation-duration:9s}.motion-active .ticker-track{animation-duration:27s}}
+@media(max-width:600px){.motion-active .motion-reveal:not(.motion-visible){transform:translate3d(0,24px,0)}.motion-active .hero-art{animation-delay:.42s;animation-duration:1s}.motion-active .hero-meta>div{animation-delay:.55s}.motion-active .hero-meta>div:nth-child(2){animation-delay:.65s}.motion-active .hero-meta>div:nth-child(3){animation-delay:.75s}}
+html:not(.motion-active){scroll-behavior:auto}
+html:not(.motion-active) *,html:not(.motion-active) *::before,html:not(.motion-active) *::after{animation:none!important;transition:none!important}
+html:not(.motion-active) .motion-reveal{opacity:1!important;clip-path:none!important;transform:none!important}
+html:not(.motion-active) .hero-art,html:not(.motion-active) .button{transform:none!important}
+html:not(.motion-active) .hero-sheen{display:none}
+html:not(.motion-active) .ticker>.ticker-track,html:not(.motion-active) .hero-art>img{transform:none;will-change:auto}
