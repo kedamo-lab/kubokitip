@@ -112,6 +112,7 @@ $('#season-select').addEventListener('change', (event) => { renderSeason(event.t
 
 fetch('data/seasons.json').then((response) => { if (!response.ok) throw new Error('Season data unavailable'); return response.json(); }).then((data) => {
   database = data;
+  $('#season-select').dataset.currentSeason = database.currentSeason;
   $('#season-select').innerHTML = [...database.seasons].sort((a,b) => Number(b.year)-Number(a.year)).map((entry) => `<option value="${html(entry.year)}">Сезон ${html(entry.year)}</option>`).join('');
   renderSeason(new URL(location.href).searchParams.get('season') || database.currentSeason);
 }).catch(() => { $('#load-error').hidden = false; });
