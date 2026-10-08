@@ -1,6 +1,8 @@
 ﻿
 node_modules/
 dist/
+vercel-dist/
+.vercel/
 .next/
 .vinext/
 .wrangler/

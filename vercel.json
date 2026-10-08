@@ -1,0 +1,22 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build:vercel",
+  "outputDirectory": "vercel-dist",
+  "installCommand": "npm ci --no-audit --no-fund",
+  "functions": {
+    "api/vercel.js": {
+      "maxDuration": 60,
+      "includeFiles": "public/admin.html"
+    }
+  },
+  "rewrites": [
+    { "source": "/admin", "destination": "/api/vercel?route=admin" },
+    { "source": "/admin/", "destination": "/api/vercel?route=admin" },
+    { "source": "/api/:path*", "destination": "/api/vercel?route=api/:path*" },
+    { "source": "/uploads/:path*", "destination": "/api/vercel?route=uploads/:path*" }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }] }
+  ]
+}
