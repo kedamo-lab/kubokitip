@@ -3,6 +3,10 @@
   const root = document.documentElement;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const motionToggle = document.querySelector('.motion-toggle');
+  let preference = 'auto';
+  try { preference = localStorage.getItem('cup-motion') || 'auto'; } catch {}
+  let motionEnabled = false;
   const revealSelector = '.section-label,.section-heading,.about-content>*,' +
     '.discipline-strip>div,.team-card,.demo-note,#bracket-panel,.table-wrap,' +
     '.result-card,.media-placeholder,.media-item,.winner-card,.organizer,.closing-inner,.footer';
@@ -36,7 +40,7 @@
       for (const name of ['--hero-x','--hero-y','--button-x','--button-y']) element.style.setProperty(name,'0px');
     };
     element.addEventListener('pointermove', (event) => {
-      if (reducedMotion.matches || !finePointer.matches || event.pointerType === 'touch') return;
+      if (!motionEnabled || !finePointer.matches || event.pointerType === 'touch') return;
       point = {x:event.clientX,y:event.clientY};
       if (frame) return;
       frame = requestAnimationFrame(() => {
@@ -74,7 +78,7 @@
       node.classList.add('motion-reveal');
       const index = [...node.parentElement.children].indexOf(node);
       node.style.setProperty('--reveal-delay',`${Math.min(index,3)*70}ms`);
-      if (reducedMotion.matches || !revealObserver) node.classList.add('motion-visible');
+      if (!motionEnabled || !revealObserver) node.classList.add('motion-visible');
       else { revealObserver.observe(node); watched.add(node); }
     });
     document.querySelectorAll('.team-card,.media-placeholder,.result-card').forEach((node) => pointerMotion(node,'card'));
@@ -106,7 +110,7 @@
     root.style.setProperty('--scroll-progress',String(maxScroll > 0 ? Math.min(1,scrollY/maxScroll) : 0));
     const delta = Math.abs(scrollY-previousScroll);
     previousScroll = scrollY;
-    if (tickerAnimation && !reducedMotion.matches) {
+    if (tickerAnimation && motionEnabled) {
       tickerAnimation.updatePlaybackRate(1 + Math.min(2,delta/120));
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => tickerAnimation?.updatePlaybackRate(1),160);
@@ -114,9 +118,25 @@
   }
   function onScroll() { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScroll); }
   function syncPreference() {
-    root.classList.toggle('motion-active',!reducedMotion.matches);
+    const wasEnabled = motionEnabled;
+    motionEnabled = preference === 'on' || (preference !== 'off' && !reducedMotion.matches);
+    root.dataset.motion = preference;
+    root.classList.toggle('motion-active',motionEnabled);
+    if (motionToggle) {
+      motionToggle.hidden = false;
+      motionToggle.setAttribute('aria-pressed',String(motionEnabled));
+      motionToggle.title = motionEnabled ? 'Выключить анимации' : 'Включить анимации';
+    }
+    if (motionEnabled && !wasEnabled && revealObserver) {
+      document.querySelectorAll('.motion-reveal').forEach((node) => {
+        if (node.getBoundingClientRect().top <= innerHeight) return;
+        node.classList.remove('motion-visible');
+        revealObserver.observe(node);
+        watched.add(node);
+      });
+    }
     tickerAnimation = ticker?.getAnimations().find((animation) => animation.animationName === 'ticker-travel');
-    if (reducedMotion.matches) {
+    if (!motionEnabled) {
       revealObserver?.disconnect();
       for (const node of watched) node.classList.add('motion-visible');
       watched.clear();
@@ -127,6 +147,11 @@
     }
     scheduleScan();
   }
+  motionToggle?.addEventListener('click',() => {
+    preference = motionEnabled ? 'off' : 'on';
+    try { localStorage.setItem('cup-motion',preference); } catch {}
+    syncPreference();
+  });
   document.addEventListener('cup:content-updated',scheduleScan);
   document.addEventListener('visibilitychange',() => root.classList.toggle('motion-paused',document.hidden));
   reducedMotion.addEventListener('change',syncPreference);

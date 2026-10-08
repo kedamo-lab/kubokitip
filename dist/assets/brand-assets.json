@@ -8,7 +8,7 @@
       "format": "svg",
       "width": 792,
       "height": 327,
-      "slot": "footer"
+      "slot": "header / footer"
     },
     {
       "file": "mark.svg",
@@ -16,7 +16,7 @@
       "format": "svg",
       "width": 412,
       "height": 412,
-      "slot": "favicon / closing"
+      "slot": "hero right / favicon / closing"
     },
     {
       "file": "banner.png",
@@ -64,7 +64,7 @@
       "format": "svg",
       "width": 709.041,
       "height": 278.947,
-      "slot": "header / hero left"
+      "slot": "hero left"
     },
     {
       "file": "logo-graphic.svg",
@@ -72,7 +72,7 @@
       "format": "svg",
       "width": 536.997,
       "height": 458.176,
-      "slot": "hero right"
+      "slot": "available graphic logo variant"
     }
   ]
 }

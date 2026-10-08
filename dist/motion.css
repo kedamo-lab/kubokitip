@@ -28,7 +28,7 @@
 .motion-active .hero-meta>div:nth-child(3){animation-delay:.88s}
 .hero-art{--hero-x:0px;--hero-y:0px;--hero-rx:0deg;--hero-ry:0deg;--spot-x:50%;--spot-y:50%;transform:perspective(1200px) rotateX(var(--hero-rx)) rotateY(var(--hero-ry));transition:transform .65s var(--motion-ease),box-shadow .65s;isolation:isolate}
 .motion-active .hero-art{animation:banner-reveal 1.35s var(--motion-ease) .23s backwards}
-.motion-active .hero-art>img{animation:banner-breathe 18s ease-in-out infinite alternate;will-change:transform}
+.motion-active .hero-art>img{animation:emblem-float 7s ease-in-out infinite;will-change:transform}
 .hero-art::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at var(--spot-x) var(--spot-y),#e4fd2a20,transparent 58%);opacity:0;transition:opacity .6s}
 .hero-art:hover::before{opacity:1}
 .hero-art:hover{box-shadow:0 26px 80px #0c465240}
@@ -63,12 +63,28 @@
 .motion-active .team-card .team-art img{transition:transform 1.2s var(--motion-ease)}
 .motion-active .team-card:hover .team-art img{transform:scale(1.045)}
 .motion-active .closing-inner.motion-visible>img{animation:trophy-float 6s ease-in-out infinite}
-.motion-paused .ticker-track,.motion-paused .ticker-star,.motion-paused .hero-art>img,.motion-paused .hero-sheen,.motion-paused .hero .dot,.motion-paused .small-mark,.motion-paused .closing-inner>img{animation-play-state:paused!important}
+.motion-paused .ticker-track,.motion-paused .ticker-star,.motion-paused .hero-art>img,.motion-paused .hero-sheen,.motion-paused .hero .dot,.motion-paused .small-mark,.motion-paused .closing-inner>img,.motion-paused .motion-bars i{animation-play-state:paused!important}
+
+.motion-toggle{flex-shrink:0;display:grid;place-items:center;width:36px;height:36px;margin-left:auto;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--muted);cursor:pointer;transition:border-color .3s,color .3s}
+.motion-toggle[hidden]{display:none}
+.motion-toggle[aria-pressed=true]{color:var(--lime);border-color:#e4fd2a60}
+.motion-toggle:hover{border-color:var(--lime)}
+.motion-bars{display:flex;align-items:center;gap:3px;height:14px}
+.motion-bars i{display:block;width:2px;height:6px;background:currentColor;border-radius:2px}
+.motion-bars i:nth-child(2){height:14px}
+.motion-active .motion-bars i{animation:motion-wave 1.2s ease-in-out infinite alternate}
+.motion-active .motion-bars i:nth-child(2){animation-delay:-.4s}
+.motion-active .motion-bars i:nth-child(3){animation-delay:-.8s}
+.header .season-control{margin-left:0}
+.hero-logo-art::before{border-radius:50%}
+.hero-logo-art:hover{box-shadow:none}
 
 @keyframes hero-rise{from{opacity:0;transform:translate3d(0,25px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes logo-reveal{from{opacity:0;clip-path:inset(100% 0 0 0);transform:translate3d(0,45px,0) scale(.97)}to{opacity:1;clip-path:inset(0 0 0 0);transform:translate3d(0,0,0) scale(1)}}
 @keyframes banner-reveal{from{opacity:0;clip-path:inset(0 0 100% 0);transform:perspective(1200px) rotateX(4deg) rotateY(-7deg) translate3d(0,50px,0)}to{opacity:1;clip-path:inset(0 0 0 0);transform:perspective(1200px) rotateX(0deg) rotateY(0deg) translate3d(0,0,0)}}
 @keyframes banner-breathe{from{transform:translate3d(var(--hero-x),var(--hero-y),0) scale(1)}to{transform:translate3d(var(--hero-x),var(--hero-y),0) scale(1.02)}}
+@keyframes emblem-float{0%,100%{transform:translate3d(var(--hero-x),var(--hero-y),0) rotate(-1.5deg)}50%{transform:translate3d(var(--hero-x),calc(var(--hero-y) - 14px),0) rotate(1.5deg)}}
+@keyframes motion-wave{to{transform:scaleY(.35)}}
 @keyframes banner-sheen{0%,20%{opacity:0;transform:translateX(-40%) rotate(18deg)}32%{opacity:1}52%,100%{opacity:0;transform:translateX(380%) rotate(18deg)}}
 @keyframes ticker-travel{to{transform:translate3d(-50%,0,0)}}
 @keyframes star-turn{to{transform:rotate(360deg)}}
@@ -76,6 +92,11 @@
 @keyframes button-shine{to{transform:skewX(-22deg) translateX(750%)}}
 @keyframes menu-reveal{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes trophy-float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
-@media(hover:none),(pointer:coarse){.motion-tilt:hover{--card-lift:0px;box-shadow:none}.motion-tilt::after,.hero-art::before{display:none}.hero-art{transform:none}.button{transform:none}.motion-active .motion-tilt.motion-visible{transform:none}.motion-active .hero-art>img{animation-duration:22s}.motion-active .ticker-track{animation-duration:27s}}
+@media(hover:none),(pointer:coarse){.motion-tilt:hover{--card-lift:0px;box-shadow:none}.motion-tilt::after,.hero-art::before{display:none}.hero-art{transform:none}.button{transform:none}.motion-active .motion-tilt.motion-visible{transform:none}.motion-active .hero-art>img{animation-duration:9s}.motion-active .ticker-track{animation-duration:27s}}
 @media(max-width:600px){.motion-active .motion-reveal:not(.motion-visible){transform:translate3d(0,24px,0)}.motion-active .hero-art{animation-delay:.42s;animation-duration:1s}.motion-active .hero-meta>div{animation-delay:.55s}.motion-active .hero-meta>div:nth-child(2){animation-delay:.65s}.motion-active .hero-meta>div:nth-child(3){animation-delay:.75s}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.motion-active .motion-reveal{opacity:1!important;clip-path:none!important;transform:none!important}*,*::before,*::after{animation:none!important;transition:none!important}.hero-art,.button{transform:none!important}.hero-sheen{display:none}.ticker>.ticker-track{transform:none;will-change:auto}.motion-active .hero-art>img{transform:none;will-change:auto}}
+html:not(.motion-active){scroll-behavior:auto}
+html:not(.motion-active) *,html:not(.motion-active) *::before,html:not(.motion-active) *::after{animation:none!important;transition:none!important}
+html:not(.motion-active) .motion-reveal{opacity:1!important;clip-path:none!important;transform:none!important}
+html:not(.motion-active) .hero-art,html:not(.motion-active) .button{transform:none!important}
+html:not(.motion-active) .hero-sheen{display:none}
+html:not(.motion-active) .ticker>.ticker-track,html:not(.motion-active) .hero-art>img{transform:none;will-change:auto}
