@@ -1,12 +1,16 @@
 import { BlobPreconditionFailedError } from '@vercel/blob';
-export function fakeBlob() {
+export function fakeBlob({compressedReads=false}={}) {
   const files=new Map();let revision=0;
   const metadata=(key,v)=>({pathname:key,size:v.bytes.byteLength,etag:v.etag,contentType:v.contentType,url:`https://fixture.private.blob.vercel-storage.com/${key}`});
   return {
     files,
     async get(key,options){
       if(options.useCache!==false)throw new Error('CMS reads must bypass cache');
-      const v=files.get(key);return v?{stream:new Response(v.bytes).body,blob:metadata(key,v),statusCode:200}:null;
+      const v=files.get(key);
+      if(!v)return null;
+      const details=metadata(key,v);
+      if(compressedReads&&options.headers?.['Accept-Encoding']!=='identity')details.etag='W/'+details.etag;
+      return {stream:new Response(v.bytes).body,blob:details,statusCode:200};
     },
     async put(key,content,options){
       const old=files.get(key);

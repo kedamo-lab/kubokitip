@@ -51,6 +51,24 @@ test('Atomic Blob writes reject simultaneous saves, including first initializati
   }
 });
 
+test('Compressed Blob responses do not cause false save conflicts',async()=>{
+  const blob=fakeBlob({compressedReads:true});
+  const store=()=>vercelStore({blob,env});
+  let current=await store().read();
+  current=await store().save(current.data,current.revision);
+  const draft=structuredClone(current.data);draft.site.name='Кубок после правки';
+  const saved=await store().save(draft,current.revision);
+  assert.equal(saved.revision,2);
+  const latest=await store().read();
+  assert.equal(latest.data.site.name,draft.site.name);
+  const next=structuredClone(latest.data);next.seasons[0].venue='Аудитория 101';
+  const again=await store().save(next,latest.revision);
+  assert.equal(again.revision,3);
+  assert.equal((await store().read()).data.seasons[0].venue,'Аудитория 101');
+  await assert.rejects(()=>store().save(draft,current.revision),error=>error.status===409);
+  assert.equal((await store().version(1)).data.site.name,current.data.site.name);
+});
+
 test('Only twenty previous versions remain in the history',async()=>{
   const {store,blob}=fixture();let current=await store().read();
   for(let i=0;i<22;i++)current=await store().save(current.data,current.revision);
