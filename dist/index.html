@@ -16,7 +16,7 @@
   <a class="skip-link" href="#main">Перейти к содержанию</a>
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Кубок ИТиП — начало страницы"><img src="assets/logo.svg" width="792" height="327" alt="Кубок ИТиП"></a>
+      <a class="brand" href="#top" aria-label="Кубок ИТиП — начало страницы"><img src="assets/logo-combined.svg" width="710" height="279" alt="Кубок ИТиП"></a>
       <nav class="desktop-nav" aria-label="Основная навигация"><a href="#about">О турнире</a><a href="#teams">Команды</a><a href="#bracket">Сетка</a><a href="#schedule">Расписание</a><a href="#media">Медиа</a></nav>
       <label class="season-control"><span class="sr-only">Сезон турнира</span><select id="season-select"><option value="2026">Сезон 2026</option></select><span aria-hidden="true">⌄</span></label>
       <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню"><span></span><span></span></button>
@@ -26,42 +26,42 @@
   <main id="main">
     <section class="hero container" id="top" aria-labelledby="hero-heading">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="dot"></span> ЧЕМПИОНАТ ОТДЕЛЕНИЯ <span class="hero-year">/ 2026</span></div>
-        <h1 id="hero-heading"><span class="sr-only">Кубок ИТиП</span><img src="assets/logo.svg" width="792" height="327" alt="" aria-hidden="true"></h1>
+        <div class="eyebrow"><span class="dot"></span> ЧЕМПИОНАТ ОТДЕЛЕНИЯ</div>
+        <h1 id="hero-heading"><span class="sr-only">Кубок ИТиП</span><img src="assets/logo-combined.svg" width="710" height="279" alt="" aria-hidden="true"></h1>
         <p class="hero-tagline">Твоя команда.<br>Твоя игра. Твой кубок.</p>
         <div class="game-tags"><span>DOTA 2</span><span>CS2</span><span class="tag-format">5 × 5</span></div>
-        <a class="button button-lime" href="#teams">К командам <span aria-hidden="true">↗</span></a>
+        <a class="button button-lime" href="#teams">К командам</a>
       </div>
-      <div class="hero-art"><img src="assets/banner.png" width="1920" height="768" alt="Фирменный баннер Кубка ИТиП: знак кубка на бирюзовом фоне с графическими лентами"></div>
+      <div class="hero-art hero-logo-art"><img src="assets/logo-graphic.svg" width="537" height="459" alt="Графический логотип Кубка ИТиП"></div>
       <div class="hero-meta"><div><span class="meta-label">ДАТА ПРОВЕДЕНИЯ</span><time id="event-date" datetime="2026-07-10">10.07.2026</time></div><div><span class="meta-label">МЕСТО ПРОВЕДЕНИЯ</span><p id="event-venue">Скоро объявим</p></div><div class="hero-meta-status"><span class="meta-label">СЕЗОН <span class="season-year">2026</span></span><p><span class="dot"></span><span id="event-status">Анонс сезона</span></p></div></div>
     </section>
     <div class="ticker" aria-hidden="true"><div>DOTA 2 <span>✦</span> CS2 <span>✦</span> КУБОК ИТиП <span>✦</span> DOTA 2 <span>✦</span> CS2 <span>✦</span> КУБОК ИТиП <span>✦</span> DOTA 2 <span>✦</span> CS2</div></div>
     <section id="about" class="section container about" aria-labelledby="about-heading">
-      <div class="section-label"><span>01 / О ТУРНИРЕ</span><span class="small-mark" aria-hidden="true">✦</span></div>
+      <div class="section-label section-label-end"><span class="small-mark" aria-hidden="true">✦</span></div>
       <div class="about-content"><h2 id="about-heading">Встречаемся<br>на одной карте.</h2><div class="about-text"><p>Кубок ИТиП — ежегодный чемпионат отделения информационных технологий и программирования по Dota 2 и CS2.</p><p class="muted">Собираем команды отделения, чтобы вместе пройти путь от первых матчей до финала. Две дисциплины. Командная игра. Один Кубок ИТиП.</p><div class="regulations-wrap"><a id="regulations" class="button button-outline" hidden>Регламент <span aria-hidden="true">↓</span></a><button id="regulations-pending" class="button button-outline" disabled>Регламент <span aria-hidden="true">↓</span></button><span id="regulations-note" class="fine">Документ готовится к публикации</span></div></div></div>
       <div class="discipline-strip"><div><span class="discipline-number">01</span><strong>Dota 2</strong><span>Пять игроков. Один трон.</span></div><div><span class="discipline-number">02</span><strong>CS2</strong><span>Пять игроков. Одна цель.</span></div></div>
     </section>
     <section id="teams" class="section container" aria-labelledby="teams-heading">
-      <div class="section-label"><span>02 / УЧАСТНИКИ</span><span>СЕЗОН <span class="season-year">2026</span></span></div>
+      <div class="section-label section-label-end"><span>СЕЗОН <span class="season-year">2026</span></span></div>
       <div class="section-heading"><h2 id="teams-heading">В игре — команды.</h2><div class="tabs" role="tablist" aria-label="Команды по дисциплинам" data-tabs="teams"><button role="tab" id="teams-tab-dota2" aria-selected="true" aria-controls="teams-panel" data-game="dota2">Dota 2</button><button role="tab" id="teams-tab-cs2" aria-selected="false" aria-controls="teams-panel" tabindex="-1" data-game="cs2">CS2</button></div></div>
       <p class="section-intro">Составы, лица и командный дух.</p>
       <div id="teams-panel" role="tabpanel" aria-labelledby="teams-tab-dota2" tabindex="0" class="team-grid"></div>
       <p class="demo-note"><span class="dot"></span> Пока здесь тестовые ростеры из брендбука. После фотосессии появятся реальные команды и составы.</p>
     </section>
     <section id="bracket" class="section bracket-section" aria-labelledby="bracket-heading"><div class="container">
-      <div class="section-label"><span>03 / ПУТЬ К КУБКУ</span><span>РАСКЛАД СИЛ</span></div>
+      <div class="section-label section-label-end"><span>РАСКЛАД СИЛ</span></div>
       <div class="section-heading"><h2 id="bracket-heading">Турнирная сетка.</h2><div class="tabs" role="tablist" aria-label="Сетка по дисциплинам" data-tabs="bracket"><button role="tab" id="bracket-tab-dota2" aria-selected="true" aria-controls="bracket-panel" data-game="dota2">Dota 2</button><button role="tab" id="bracket-tab-cs2" aria-selected="false" aria-controls="bracket-panel" tabindex="-1" data-game="cs2">CS2</button></div></div>
       <div id="bracket-panel" role="tabpanel" aria-labelledby="bracket-tab-dota2" tabindex="0"></div>
     </div></section>
     <section id="schedule" class="section container" aria-labelledby="schedule-heading">
-      <div class="section-label"><span>04 / КАЛЕНДАРЬ МАТЧЕЙ</span><span>НЕ ПРОПУСТИ СВОЮ ИГРУ</span></div>
+      <div class="section-label section-label-end"><span>НЕ ПРОПУСТИ СВОЮ ИГРУ</span></div>
       <div class="section-heading"><h2 id="schedule-heading">Время играть.</h2><div class="filters" aria-label="Фильтр расписания"><button class="active" aria-pressed="true" data-schedule="all">Все матчи</button><button aria-pressed="false" data-schedule="dota2">Dota 2</button><button aria-pressed="false" data-schedule="cs2">CS2</button></div></div>
       <div class="table-wrap"><table class="schedule-table"><caption class="sr-only">Расписание матчей Кубка ИТиП</caption><thead><tr><th scope="col">Дата</th><th scope="col">Время</th><th scope="col">Дисциплина</th><th scope="col">Матч</th><th scope="col">Этап</th></tr></thead><tbody id="schedule-body"></tbody></table></div>
     </section>
-    <section id="results" class="section container results-section" aria-labelledby="results-heading"><div class="section-label"><span>05 / РЕЗУЛЬТАТЫ</span><span>ИГРА РЕШАЕТ</span></div><div class="section-heading"><h2 id="results-heading">Кто идёт дальше.</h2><span class="fine">Итоги завершённых матчей</span></div><div id="results-grid" class="results-grid"></div></section>
-    <section id="media" class="section media-section" aria-labelledby="media-heading"><div class="container"><div class="section-label"><span>06 / МЕДИА</span><span>БОЛЬШЕ, ЧЕМ ИГРА</span></div><div class="section-heading"><h2 id="media-heading">Моменты Кубка.</h2><span class="fine">Фото / Видео</span></div><p class="section-intro">Эмоции, которые не помещаются в счёт матча.</p><div id="media-grid" class="media-grid"></div><p class="fine media-note">Фотографии и видео появятся после отборочных матчей и финала.</p></div></section>
+    <section id="results" class="section container results-section" aria-labelledby="results-heading"><div class="section-label section-label-end"><span>ИГРА РЕШАЕТ</span></div><div class="section-heading"><h2 id="results-heading">Кто идёт дальше.</h2><span class="fine">Итоги завершённых матчей</span></div><div id="results-grid" class="results-grid"></div></section>
+    <section id="media" class="section media-section" aria-labelledby="media-heading"><div class="container"><div class="section-label section-label-end"><span>БОЛЬШЕ, ЧЕМ ИГРА</span></div><div class="section-heading"><h2 id="media-heading">Моменты Кубка.</h2><span class="fine">Фото / Видео</span></div><p class="section-intro">Эмоции, которые не помещаются в счёт матча.</p><div id="media-grid" class="media-grid"></div><p class="fine media-note">Фотографии и видео появятся после отборочных матчей и финала.</p></div></section>
     <section id="winners" class="section winners-section" hidden aria-labelledby="winners-heading"><div class="container"><div class="section-label"><span>07 / ПОБЕДИТЕЛИ</span><span>СЕЗОН <span class="season-year">2026</span></span></div><h2 id="winners-heading">Этот Кубок — ваш.</h2><div id="winners-grid" class="winners-grid"></div></div></section>
-    <section id="organizers" class="section container organizers-section" aria-labelledby="organizers-heading"><div class="section-label"><span>08 / ОРГАНИЗАТОРЫ</span><span>КОМАНДА ЗА КАДРОМ</span></div><h2 id="organizers-heading">Делаем Кубок вместе.</h2><div id="organizers-grid" class="organizers-grid"></div><div id="partners" hidden></div></section>
+    <section id="organizers" class="section container organizers-section" aria-labelledby="organizers-heading"><div class="section-label section-label-end"><span>КОМАНДА ЗА КАДРОМ</span></div><h2 id="organizers-heading">Делаем Кубок вместе.</h2><div id="organizers-grid" class="organizers-grid"></div><div id="partners" hidden></div></section>
     <section class="closing"><div class="container closing-inner"><img src="assets/mark.svg" alt="" aria-hidden="true" width="412" height="412"><p>До встречи<br>в игре.</p><a class="button button-dark" href="#top">К началу <span aria-hidden="true">↑</span></a></div></section>
   </main>
   <footer class="footer container"><a class="brand" href="#top"><img src="assets/logo.svg" width="792" height="327" alt="Кубок ИТиП"></a><p>Отделение информационных технологий<br>и программирования</p><p>КУБОК ИТиП <span class="season-year">2026</span><br><span class="fine">Ежегодно. Вместе.</span></p></footer>

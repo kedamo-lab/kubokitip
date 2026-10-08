@@ -69,7 +69,6 @@ function renderSeason(year) {
   $('#season-select').value = season.year;
   document.title = `Кубок ИТиП ${season.year} — Dota 2 / CS2`;
   document.querySelectorAll('.season-year').forEach((node) => { node.textContent = season.year; });
-  $('.hero-year').textContent = `/ ${season.year}`;
   $('#event-date').textContent = season.dateLabel;
   $('#event-date').dateTime = season.date;
   $('#event-venue').textContent = season.venue;

@@ -8,7 +8,7 @@
       "format": "svg",
       "width": 792,
       "height": 327,
-      "slot": "header / hero / footer"
+      "slot": "footer"
     },
     {
       "file": "mark.svg",
@@ -24,7 +24,7 @@
       "format": "png",
       "width": 1920,
       "height": 768,
-      "slot": "hero / media placeholder background"
+      "slot": "media placeholder background"
     },
     {
       "file": "roster-1.png",
@@ -57,6 +57,22 @@
       "width": 1000,
       "height": 1000,
       "slot": "available CS2 roster template"
+    },
+    {
+      "file": "logo-combined.svg",
+      "nodeId": "23:216",
+      "format": "svg",
+      "width": 709.041,
+      "height": 278.947,
+      "slot": "header / hero left"
+    },
+    {
+      "file": "logo-graphic.svg",
+      "nodeId": "23:244",
+      "format": "svg",
+      "width": 536.997,
+      "height": 458.176,
+      "slot": "hero right"
     }
   ]
 }
