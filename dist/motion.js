@@ -18,6 +18,23 @@
   let previousScroll = scrollY;
   let tickerAnimation;
 
+  const header = document.querySelector('.header');
+  const headerOutline = header?.querySelector('.header-progress');
+  function sizeHeaderOutline() {
+    if (!headerOutline) return;
+    const width = header.clientWidth;
+    const height = header.clientHeight;
+    const radius = parseFloat(getComputedStyle(header).borderTopLeftRadius) || 0;
+    headerOutline.setAttribute('viewBox',`0 0 ${width} ${height}`);
+    const outline = headerOutline.querySelector('rect');
+    outline.setAttribute('width',String(Math.max(0,width-2)));
+    outline.setAttribute('height',String(Math.max(0,height-2)));
+    outline.setAttribute('rx',String(Math.max(0,radius-1)));
+  }
+  if (header && 'ResizeObserver' in window) new ResizeObserver(sizeHeaderOutline).observe(header);
+  else window.addEventListener('resize',sizeHeaderOutline,{passive:true});
+  sizeHeaderOutline();
+
   const revealObserver = 'IntersectionObserver' in window ? new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
