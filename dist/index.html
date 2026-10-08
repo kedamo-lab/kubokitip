@@ -23,8 +23,10 @@
       <button class="motion-toggle" type="button" aria-label="Анимации" aria-pressed="false" title="Включить анимации" hidden><span class="motion-bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="sr-only">Анимации</span></button>
       <div class="season-control">
         <select id="season-select" aria-label="Сезон турнира" data-current-season="2026"><option value="2026">Сезон 2026</option></select>
-        <button id="season-trigger" class="season-trigger" type="button" aria-label="Сезон 2026" aria-haspopup="listbox" aria-expanded="false" aria-controls="season-list" hidden><span class="season-trigger-copy"><span class="season-trigger-label">СЕЗОН</span><strong id="season-current">2026</strong></span><span class="season-chevron" aria-hidden="true"></span></button>
-        <div id="season-popover" class="season-popover" hidden><p class="season-popover-title">СЕЗОНЫ КУБКА</p><div id="season-list" role="listbox" aria-label="Сезоны турнира"></div></div>
+        <div class="season-shell">
+          <button id="season-trigger" class="season-trigger" type="button" aria-label="Сезон 2026" aria-haspopup="listbox" aria-expanded="false" aria-controls="season-list" hidden><span class="season-trigger-copy"><span class="season-trigger-label">СЕЗОН</span><strong id="season-current">2026</strong></span><span class="season-chevron" aria-hidden="true"></span></button>
+          <div id="season-popover" class="season-popover" aria-hidden="true" hidden><div class="season-popover-inner"><div id="season-list" role="listbox" aria-label="Сезоны турнира"></div></div></div>
+        </div>
       </div>
       <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню"><span></span><span></span></button>
     </div>

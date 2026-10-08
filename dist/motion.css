@@ -90,31 +90,34 @@
 .hero-logo-art:hover{box-shadow:none}
 
 /* The native select remains available until the styled control is ready. */
-.season-control.season-enhanced{border:0}
-.season-trigger{display:flex;align-items:center;justify-content:space-between;gap:18px;min-width:124px;height:46px;padding:0 16px;border:1px solid #294044;border-radius:13px;color:var(--white);background:linear-gradient(135deg,#0c465238,#11181a);cursor:pointer;box-shadow:inset 0 1px 0 #ffffff08;transition:background .3s,border-color .3s,box-shadow .3s}
+.season-control.season-enhanced{--season-width:136px;--season-button-height:46px;width:var(--season-width);height:var(--season-button-height);display:block;border:0}
+.season-enhanced .season-shell{position:absolute;top:0;left:0;z-index:25;width:100%;overflow:hidden;border:1px solid #294044;border-radius:13px;background:linear-gradient(135deg,#10272c,#11181a);box-shadow:inset 0 1px 0 #ffffff08;transition:border-color .3s,box-shadow .35s}
+.season-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:calc(var(--season-button-height) - 2px);padding:0 14px;border:0;border-radius:0;color:var(--white);background:transparent;cursor:pointer}
 .season-trigger[hidden]{display:none}
 .season-trigger-copy{display:flex;align-items:baseline;gap:8px}
 .season-trigger-label{font-size:9px;font-weight:600;letter-spacing:.08em;color:#91a7a9}
 .season-trigger strong{font-size:15px;letter-spacing:.01em}
 .season-chevron{flex-shrink:0;width:6px;height:6px;border-right:1.5px solid var(--lime);border-bottom:1.5px solid var(--lime);transform:rotate(45deg) translateY(-2px);transition:transform .3s var(--motion-ease)}
-.season-trigger:hover,.season-open .season-trigger{border-color:#e4fd2a80;background:linear-gradient(135deg,#0c465270,#11181a);box-shadow:0 0 20px #e4fd2a08,inset 0 1px 0 #ffffff0a}
+.season-enhanced .season-shell:hover,.season-enhanced .season-shell:focus-within,.season-open .season-shell{border-color:#e4fd2a80;box-shadow:0 12px 30px #0005,0 0 20px #e4fd2a08,inset 0 1px 0 #ffffff0a}
 .season-open .season-chevron{transform:rotate(225deg) translate(-1px,-1px)}
-.season-popover{position:absolute;top:calc(100% + 22px);right:0;z-index:25;width:208px;max-width:calc(100vw - 32px);padding:14px 9px 9px;border:1px solid #294044;border-radius:17px;background:linear-gradient(155deg,#10272c,#0b1114 65%);box-shadow:0 20px 48px #0009,0 0 0 1px #ffffff03;transform-origin:top right;animation:season-menu-reveal .28s var(--motion-ease) both}
+.season-popover{width:100%;height:0;overflow:hidden;opacity:0;visibility:hidden;transition:height .45s var(--motion-ease),opacity .3s,visibility .45s}
+.season-open .season-popover{height:var(--season-menu-height);opacity:1;visibility:visible}
+.season-popover-inner{padding:8px;border-top:1px solid #e4fd2a18}
+.season-popover-inner #season-list{transform:translateY(-6px);transition:transform .45s var(--motion-ease)}
+.season-open #season-list{transform:translateY(0)}
 .season-popover[hidden]{display:none}
-.season-popover-title{margin:0 7px 11px;font-size:9px;font-weight:600;letter-spacing:.14em;color:#82999c}
-.season-option{display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px;border:1px solid transparent;border-radius:11px;background:transparent;color:var(--white);text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+.season-option{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;padding:10px 8px;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--white);text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
 .season-option>span:first-child{display:grid;gap:4px}
 .season-option strong{font-size:17px;letter-spacing:.02em}
-.season-option small{font-size:10px;color:#91a7a9}
+.season-option small{font-size:9px;color:#91a7a9;white-space:nowrap}
 .season-option:hover,.season-option:focus-visible{background:#ffffff08}
 .season-option[aria-selected=true]{background:#e4fd2a0c;border-color:#e4fd2a30}
 .season-option[aria-selected=true] strong{color:var(--lime)}
 .season-check{font-size:16px;color:var(--lime);opacity:0}
 .season-option[aria-selected=true] .season-check{opacity:1}
-@keyframes season-menu-reveal{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(min-width:801px) and (max-width:1100px){.header-inner{gap:20px;padding-inline:20px}}
-@media(max-width:600px){.season-trigger{min-width:110px;height:38px;padding-inline:12px;gap:13px;border-radius:11px}.season-trigger-copy{gap:6px}.season-trigger-label{font-size:8px}.season-trigger strong{font-size:13px}.season-popover{top:calc(100% + 23px)}}
-@media(max-width:360px){.season-trigger{min-width:84px;padding-inline:10px;gap:10px}.season-trigger-copy{flex-direction:column;align-items:flex-start;gap:3px}.season-trigger-label{line-height:1}.season-trigger strong{line-height:1.2}}
+@media(max-width:600px){.season-control.season-enhanced{--season-width:110px;--season-button-height:38px}.season-enhanced .season-shell{border-radius:11px}.season-trigger{padding-inline:11px;gap:11px}.season-trigger-copy{gap:6px}.season-trigger-label{font-size:8px}.season-trigger strong{font-size:13px}.season-option small{display:none}.season-option strong{font-size:14px}.season-option{padding:9px 7px}}
+@media(max-width:360px){.season-control.season-enhanced{--season-width:84px}.season-trigger{padding-inline:9px;gap:9px}.season-trigger-copy{flex-direction:column;align-items:flex-start;gap:3px}.season-trigger-label{line-height:1}.season-trigger strong{line-height:1.2}.season-popover-inner{padding:6px}.season-option{padding:8px 5px}}
 
 @keyframes hero-rise{from{opacity:0;transform:translate3d(0,25px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes logo-reveal{from{opacity:0;clip-path:inset(100% 0 0 0);transform:translate3d(0,45px,0) scale(.97)}to{opacity:1;clip-path:inset(0 0 0 0);transform:translate3d(0,0,0) scale(1)}}
