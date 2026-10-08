@@ -1,0 +1,62 @@
+{
+  "fileKey": "eg6I7lfpbwJdk0UaosOwl9",
+  "source": "https://www.figma.com/design/eg6I7lfpbwJdk0UaosOwl9/?node-id=0-1",
+  "assets": [
+    {
+      "file": "logo.svg",
+      "nodeId": "23:201",
+      "format": "svg",
+      "width": 792,
+      "height": 327,
+      "slot": "header / hero / footer"
+    },
+    {
+      "file": "mark.svg",
+      "nodeId": "23:421",
+      "format": "svg",
+      "width": 412,
+      "height": 412,
+      "slot": "favicon / closing"
+    },
+    {
+      "file": "banner.png",
+      "nodeId": "23:426",
+      "format": "png",
+      "width": 1920,
+      "height": 768,
+      "slot": "hero / media placeholder background"
+    },
+    {
+      "file": "roster-1.png",
+      "nodeId": "33:299",
+      "format": "png",
+      "width": 1000,
+      "height": 1000,
+      "slot": "CS2 team 03"
+    },
+    {
+      "file": "roster-2.png",
+      "nodeId": "33:272",
+      "format": "png",
+      "width": 1000,
+      "height": 1000,
+      "slot": "CS2 team 04"
+    },
+    {
+      "file": "roster-3.png",
+      "nodeId": "33:245",
+      "format": "png",
+      "width": 1000,
+      "height": 1000,
+      "slot": "Dota 2 teams 01 / 02"
+    },
+    {
+      "file": "roster-4.png",
+      "nodeId": "33:113",
+      "format": "png",
+      "width": 1000,
+      "height": 1000,
+      "slot": "available CS2 roster template"
+    }
+  ]
+}

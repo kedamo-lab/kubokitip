@@ -14,8 +14,8 @@
           "id": "dota2",
           "name": "Dota 2",
           "teams": [
-            { "id": "dota-demo-1", "name": "Команда 01", "demo": true, "image": "assets/roster-3.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] },
-            { "id": "dota-demo-2", "name": "Команда 02", "demo": true, "image": "assets/roster-3.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] }
+            { "id": "dota-demo-1", "name": "Команда 01", "demo": true, "image": "assets/roster-3.png", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] },
+            { "id": "dota-demo-2", "name": "Команда 02", "demo": true, "image": "assets/roster-3.png", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] }
           ],
           "bracket": [],
           "matches": [],
@@ -25,8 +25,8 @@
           "id": "cs2",
           "name": "CS2",
           "teams": [
-            { "id": "cs-demo-1", "name": "Команда 03", "demo": true, "image": "assets/roster-1.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] },
-            { "id": "cs-demo-2", "name": "Команда 04", "demo": true, "image": "assets/roster-2.jpg", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] }
+            { "id": "cs-demo-1", "name": "Команда 03", "demo": true, "image": "assets/roster-1.png", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] },
+            { "id": "cs-demo-2", "name": "Команда 04", "demo": true, "image": "assets/roster-2.png", "players": ["Игрок 01", "Игрок 02", "Игрок 03", "Игрок 04", "Игрок 05"] }
           ],
           "bracket": [],
           "matches": [],
