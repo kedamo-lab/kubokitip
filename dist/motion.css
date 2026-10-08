@@ -91,7 +91,7 @@
 
 /* The native select remains available until the styled control is ready. */
 .season-control.season-enhanced{--season-width:136px;--season-button-height:46px;width:var(--season-width);height:var(--season-button-height);display:block;border:0}
-.season-enhanced .season-shell{position:absolute;top:0;left:0;z-index:25;width:100%;overflow:hidden;border:1px solid #294044;border-radius:13px;background:linear-gradient(135deg,#10272c,#11181a);box-shadow:inset 0 1px 0 #ffffff08;transition:border-color .3s,box-shadow .35s}
+.season-enhanced .season-shell{position:absolute;top:0;left:0;z-index:25;width:100%;overflow:hidden;border:1px solid #294044;border-radius:13px;background:rgba(8,10,11,.96);box-shadow:inset 0 1px 0 #ffffff08;transition:border-color .3s,box-shadow .35s}
 .season-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;height:calc(var(--season-button-height) - 2px);padding:0 14px;border:0;border-radius:0;color:var(--white);background:transparent;cursor:pointer}
 .season-trigger[hidden]{display:none}
 .season-trigger-copy{display:flex;align-items:baseline;gap:8px}
