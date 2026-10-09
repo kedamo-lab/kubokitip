@@ -8,7 +8,7 @@
   "scripts": {
     "install:ci": "node scripts/install-ci.mjs",
     "dev": "node scripts/run-framework.mjs dev",
-    "build": "node scripts/run-framework.mjs build",
+    "build": "node scripts/build-target.mjs",
     "build:vercel": "node scripts/build-vercel.mjs",
     "build:layero": "node scripts/build-layero.mjs",
     "start:layero": "node layero-server.mjs",
