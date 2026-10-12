@@ -4,7 +4,7 @@ export const categories = [
  ['appearance','Оформление','Цвета, шрифты, размеры и анимации'],
  ['header','Шапка и меню','Логотип, навигация и переключатель сезонов'],
  ['hero','Первый экран','Слоган, изображения, подписи и кнопка'],
- ['about','О турнире','Описание, дисциплины и регламент'],
+ ['about','О турнире','Описание, регламент и расписания дня'],
  ['teams','Команды','Фотографии, названия и составы'],
  ['bracket','Турнирная сетка','Раунды, пары команд и счёт'],
  ['schedule','Расписание','Дата, время, этап и статус каждого матча'],
@@ -30,7 +30,7 @@ export const defaults = {
 };
 export const contentDefaults = {
  hero:{visible:true,eyebrow:'ЧЕМПИОНАТ ОТДЕЛЕНИЯ',tagline:'Твоя команда.\nТвоя игра. Твой кубок.',format:'5 × 5',button:'К командам',buttonUrl:'#teams',dateLabel:'ДАТА ПРОВЕДЕНИЯ',venueLabel:'МЕСТО ПРОВЕДЕНИЯ',seasonLabel:'СЕЗОН'},
- about:{visible:true,title:'Встречаемся\nна одной карте.',text:'Кубок ИТиП — ежегодный чемпионат отделения информационных технологий и программирования по Dota 2 и CS2.',secondaryText:'Собираем команды отделения, чтобы вместе пройти путь от первых матчей до финала. Две дисциплины. Командная игра. Один Кубок ИТиП.',regulationsLabel:'Регламент',regulationsNote:'Документ готовится к публикации'},
+ about:{visible:true,title:'Встречаемся\nна одной карте.',text:'Кубок ИТиП — ежегодный чемпионат отделения информационных технологий и программирования по Dota 2 и CS2.',secondaryText:'Собираем команды отделения, чтобы вместе пройти путь от первых матчей до финала. Две дисциплины. Командная игра. Один Кубок ИТиП.',regulationsLabel:'Регламент',regulationsNote:'Документ готовится к публикации',dayScheduleLabel:'Расписание дня'},
  teams:{visible:true,title:'В игре — команды.',intro:'Составы, лица и командный дух.',label:'СЕЗОН {year}',demoNote:'Пока здесь тестовые ростеры из брендбука. После фотосессии появятся реальные команды и составы.',demoBadge:'МАКЕТ',rosterLabel:'СОСТАВ КОМАНДЫ',empty:'Участники появятся после подтверждения составов.'},
  bracket:{visible:true,title:'Турнирная сетка.',label:'РАСКЛАД СИЛ',emptyText:'Здесь будут пары команд и результаты матчей.',soon:'СКОРО',unknownTeam:'Участник определится'},
  schedule:{visible:true,title:'Время играть.',label:'НЕ ПРОПУСТИ СВОЮ ИГРУ',all:'Все матчи',columns:['Дата','Время','Дисциплина','Матч','Этап'],emptyTitle:'Расписание готовится.',emptyText:'Даты, время и пары команд появятся после жеребьёвки.',unknown:'Уточняется'},
@@ -42,7 +42,7 @@ export const contentDefaults = {
 };
 export const contentFields = {
  hero:[['eyebrow','Подпись над логотипом'],['tagline','Слоган','textarea'],['format','Формат игры'],['button','Текст кнопки'],['buttonUrl','Ссылка кнопки','url'],['dateLabel','Подпись даты'],['venueLabel','Подпись места'],['seasonLabel','Подпись сезона']],
- about:[['title','Заголовок','textarea'],['text','Основное описание','textarea'],['secondaryText','Второй абзац','textarea'],['regulationsLabel','Текст кнопки регламента'],['regulationsNote','Подпись, пока документ не загружен']],
+ about:[['title','Заголовок','textarea'],['text','Основное описание','textarea'],['secondaryText','Второй абзац','textarea'],['regulationsLabel','Текст кнопки регламента'],['regulationsNote','Подпись, пока документ не загружен'],['dayScheduleLabel','Текст кнопок расписания дня']],
  teams:[['title','Заголовок'],['intro','Описание','textarea'],['label','Подпись раздела'],['demoNote','Подпись тестовых карточек','textarea'],['demoBadge','Метка тестовой карточки'],['rosterLabel','Подпись состава'],['empty','Текст без команд','textarea']],
  bracket:[['title','Заголовок'],['label','Подпись раздела'],['emptyText','Текст до жеребьёвки','textarea'],['soon','Метка ожидания'],['unknownTeam','Название неизвестного участника']],
  schedule:[['title','Заголовок'],['label','Подпись раздела'],['all','Текст фильтра всех матчей'],['columns','Заголовки пяти колонок','lines'],['emptyTitle','Заголовок пустого расписания'],['emptyText','Описание пустого расписания','textarea'],['unknown','Неизвестные дата и время']],
@@ -57,6 +57,6 @@ export function normalize(data) {
  const result=clone(data);result.schemaVersion=1;
  result.site={...clone(defaults),...result.site};
  for(const key of ['logos','colors','fonts','layout','motion','header','footer','ticker']) result.site[key]={...clone(defaults[key]),...result.site[key]};
- for(const season of result.seasons){season.order=season.order||clone(sectionIds);season.content=season.content||{};for(const id of sectionIds)season.content[id]={...clone(contentDefaults[id]),...season.content[id]};for(const game of season.disciplines)game.caption??=game.id==='dota2'?'Пять игроков. Один трон.':'Пять игроков. Одна цель.';}
+ for(const season of result.seasons){season.order=season.order||clone(sectionIds);season.content=season.content||{};for(const id of sectionIds)season.content[id]={...clone(contentDefaults[id]),...season.content[id]};for(const game of season.disciplines){game.caption??=game.id==='dota2'?'Пять игроков. Один трон.':'Пять игроков. Одна цель.';game.dayScheduleUrl??='';}}
  return result;
 }

@@ -81,6 +81,9 @@ test('Direct uploads require session/CSRF, enforce 25 MB, and never grant state-
   const handle=createVercelHandler({env,store:store(),uploadHandler});const auth=await login(handle);
   const body={pathname:`staging/${randomUUID()}.png`,clientPayload:JSON.stringify({csrf:auth.csrf})};
   const response=await handle(write('/api/blob-upload',auth,body,'POST'));assert.equal(response.status,200);assert.equal(options.maximumSizeInBytes,25*1024*1024);assert.equal(options.allowOverwrite,false);
+  for(const [ext,type] of [['doc','application/msword'],['docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document']]){
+    assert.equal((await handle(write('/api/blob-upload',auth,{...body,pathname:`staging/${randomUUID()}.${ext}`},'POST'))).status,200);assert.deepEqual(options.allowedContentTypes,[type]);
+  }
   assert.equal((await handle(write('/api/blob-upload',{cookie:'',csrf:''},body,'POST'))).status,403);
   assert.equal((await handle(write('/api/blob-upload',auth,{...body,pathname:'cms/state.json'},'POST'))).status,400);
   assert.equal((await handle(write('/api/blob-upload',auth,{...body,clientPayload:'{}'},'POST'))).status,403);
@@ -106,6 +109,16 @@ test('Uploads validate SVG before publication and files survive new store instan
   const unsafe=`staging/${randomUUID()}.svg`;await blob.put(unsafe,'<svg><script>alert(1)</script></svg>',{contentType:'image/svg+xml'});
   await assert.rejects(()=>store().finalize(unsafe,'bad.svg'),/SVG должен быть статическим/);
   assert.equal((await store().files()).length,1);assert.equal(await store().file('cms/state.json'),null);
+});
+
+test('Private Word uploads finalize and download with the correct MIME type',async()=>{
+  const {store,blob,handler}=fixture();
+  for(const [ext,type] of [['doc','application/msword'],['docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document']]){
+    const pathname=`staging/${randomUUID()}.${ext}`;await blob.put(pathname,'schedule fixture '+ext,{contentType:type});
+    const file=await store().finalize(pathname,'schedule.'+ext);assert.equal(file.type,type);assert.equal(blob.files.has(pathname),false);
+    const response=await handler()(new Request(origin+'/api/vercel?route='+file.url.slice(1)));assert.equal(response.status,200);assert.equal(response.headers.get('Content-Type'),type);assert.equal(await response.text(),'schedule fixture '+ext);
+  }
+  assert.equal((await store().files()).length,2);
 });
 
 test('Missing storage/password gives setup instructions without enabling editor writes',async()=>{

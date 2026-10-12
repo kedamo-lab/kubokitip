@@ -91,6 +91,32 @@ test('Uploads validate SVG, preserve URLs, support HEAD and conditional reads',a
   assert.equal(await store().file('cms/state.json'),null);assert.equal((await store().files()).length,1);
 });
 
+test('Day schedules accept PDF and Word, retain per-season links and reject unsafe URLs',async()=>{
+  const {handler}=fixture(),handle=handler(),auth=await login(handle),uploaded={};
+  const expectedTypes={pdf:'application/pdf',doc:'application/msword',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
+  for(const [ext,type] of Object.entries(expectedTypes)){
+    const bytes=Buffer.from('Schedule fixture: '+ext),form=new FormData();
+    form.set('file',new File([bytes],'schedule.'+ext,{type}));
+    const response=await handle(new Request(origin+'/api/upload',{method:'POST',headers:{Origin:origin,Cookie:auth.cookie,'X-Cup-CSRF':auth.csrf},body:form}));
+    assert.equal(response.status,201);uploaded[ext]=await response.json();assert.equal(uploaded[ext].type,type);
+    const download=await handler()(new Request(origin+uploaded[ext].url));assert.equal(download.status,200);assert.equal(download.headers.get('Content-Type'),type);assert.deepEqual(Buffer.from(await download.arrayBuffer()),bytes);
+  }
+  const current=await (await handle(new Request(origin+'/api/content'))).json();
+  current.data.seasons[0].disciplines[0].dayScheduleUrl=uploaded.docx.url;
+  current.data.seasons[0].disciplines[1].dayScheduleUrl=uploaded.pdf.url;
+  const next=structuredClone(current.data.seasons[0]);next.year='2027';next.disciplines[0].dayScheduleUrl=uploaded.doc.url;current.data.seasons.push(next);
+  const saved=await handler()(write('/api/content',auth,{data:current.data,revision:current.revision}));assert.equal(saved.status,200);
+  const reloaded=await (await handler()(new Request(origin+'/api/content'))).json();
+  assert.equal(reloaded.data.seasons[0].disciplines[0].dayScheduleUrl,uploaded.docx.url);assert.equal(reloaded.data.seasons[0].disciplines[1].dayScheduleUrl,uploaded.pdf.url);assert.equal(reloaded.data.seasons[1].disciplines[0].dayScheduleUrl,uploaded.doc.url);
+  const invalid=structuredClone(reloaded.data);invalid.seasons[0].disciplines[0].dayScheduleUrl='javascript:alert(1)';
+  assert.equal((await handle(write('/api/content',auth,{data:invalid,revision:reloaded.revision}))).status,400);
+  reloaded.data.seasons[0].disciplines[0].dayScheduleUrl='';
+  assert.equal((await handle(write('/api/content',auth,{data:reloaded.data,revision:reloaded.revision}))).status,200);
+  const previous=await (await handler()(new Request(origin+'/api/version?revision='+reloaded.revision,{headers:{Cookie:auth.cookie}}))).json();
+  assert.equal(previous.data.seasons[0].disciplines[0].dayScheduleUrl,uploaded.docx.url);
+  assert.equal((await handler()(new Request(origin+uploaded.docx.url))).status,200);
+});
+
 test('Migration preserves current revision, history and file names, refuses a populated target',async()=>{
   const {store}=fixture();const data=(await store().read()).data;
   data.site.name='Живые данные';

@@ -3,7 +3,7 @@ import { upload } from '@vercel/blob/client';
 export async function uploadVercel(file, csrf) {
   const ext = file.name.split('.').pop().toLowerCase();
   const pathname = `staging/${crypto.randomUUID()}.${ext}`;
-  const types = {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',avif:'image/avif',gif:'image/gif',svg:'image/svg+xml',pdf:'application/pdf',mp4:'video/mp4',webm:'video/webm',woff:'font/woff',woff2:'font/woff2'};
+  const types = {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',avif:'image/avif',gif:'image/gif',svg:'image/svg+xml',pdf:'application/pdf',doc:'application/msword',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',mp4:'video/mp4',webm:'video/webm',woff:'font/woff',woff2:'font/woff2'};
   if (!types[ext]) throw new Error('Неподдерживаемый формат файла.');
   const response = await upload(pathname, file, {
     access: 'private', handleUploadUrl: '/api/blob-upload',

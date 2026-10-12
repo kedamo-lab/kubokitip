@@ -28,3 +28,4 @@
 @media(hover:hover){.editor-shortcut:hover{transform:translateY(-3px);border-color:var(--lime);box-shadow:0 8px 28px #0006,0 0 18px color-mix(in srgb,var(--lime) 12%,transparent)}}
 .editor-shortcut:active{transform:scale(.95)}
 @media(max-width:800px){.editor-shortcut{right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));width:48px;height:48px;border-radius:16px}}
+.day-schedules{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}.day-schedules .button{gap:18px;max-width:100%;overflow-wrap:anywhere}@media(max-width:600px){.day-schedules{flex-direction:column;align-items:stretch}.day-schedules .button{width:100%;font-size:12px}}
