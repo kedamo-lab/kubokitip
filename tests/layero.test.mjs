@@ -5,6 +5,7 @@ import {s3Store} from '../lib/s3-store.mjs';
 import {createLayeroHandler} from '../lib/layero-handler.mjs';
 import {createLayeroServer} from '../layero-server.mjs';
 import {uploadInfo} from '../lib/cms.mjs';
+import {eightTeamLayout,removeNode} from '../public/bracket-model.js';
 import {fakeS3} from './fake-s3.mjs';
 import {migrateToLayero} from '../scripts/migrate-to-layero.mjs';
 
@@ -52,6 +53,23 @@ test('Settings survive new server instances, repeated saves and restore',async()
   assert.equal((await (await handler()(new Request(origin+'/api/content'))).json()).data.site.name,'Изменение 2');
   const restored=await handler()(write('/api/restore',auth,{version:0,revision:3},'POST'));
   assert.equal(restored.status,200);assert.equal((await restored.json()).data.site.name,original);
+});
+
+test('Visual brackets persist separately by season and discipline, retain history and reject dangling links',async()=>{
+  const {handler}=fixture(),handle=handler(),auth=await login(handle);
+  let current=await (await handle(new Request(origin+'/api/content'))).json();
+  assert.equal(current.data.seasons[0].disciplines[0].bracketLayout.enabled,false);
+  const graph=eightTeamLayout(['Первый состав','Второй состав']);
+  current.data.seasons[0].disciplines[0].bracketLayout=graph;
+  const nextSeason=structuredClone(current.data.seasons[0]);nextSeason.year='2027';nextSeason.disciplines[0].bracketLayout=removeNode(graph,graph.nodes[0].id);current.data.seasons.push(nextSeason);
+  let response=await handle(write('/api/content',auth,{data:current.data,revision:current.revision}));assert.equal(response.status,200);current=await response.json();
+  const loaded=await (await handler()(new Request(origin+'/api/content'))).json();
+  assert.deepEqual(loaded.data.seasons[0].disciplines[0].bracketLayout,graph);assert.equal(loaded.data.seasons[0].disciplines[1].bracketLayout.nodes.length,0);assert.equal(loaded.data.seasons[1].disciplines[0].bracketLayout.nodes.length,14);
+  const invalid=structuredClone(current.data);invalid.seasons[0].disciplines[0].bracketLayout.edges[0].to='deleted';
+  assert.equal((await handle(write('/api/content',auth,{data:invalid,revision:current.revision}))).status,400);
+  current.data.seasons[0].disciplines[0].bracketLayout={...graph,nodes:[],edges:[]};
+  response=await handle(write('/api/content',auth,{data:current.data,revision:current.revision}));assert.equal(response.status,200);current=await response.json();
+  const restore=await handler()(write('/api/restore',auth,{version:1,revision:current.revision},'POST'));assert.equal(restore.status,200);assert.deepEqual((await restore.json()).data.seasons[0].disciplines[0].bracketLayout,graph);
 });
 
 test('Conditional S3 writes reject simultaneous first saves and edits without losing history',async()=>{

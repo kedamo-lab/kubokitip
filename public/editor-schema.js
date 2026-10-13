@@ -1,3 +1,4 @@
+import {emptyLayout} from './bracket-model.js';
 export const sectionIds = ['hero','about','teams','bracket','schedule','results','media','winners','organizers','closing'];
 export const categories = [
  ['general','Сайт и сезон','Название, дата, место и основные настройки'],
@@ -6,7 +7,7 @@ export const categories = [
  ['hero','Первый экран','Слоган, изображения, подписи и кнопка'],
  ['about','О турнире','Описание, регламент и расписания дня'],
  ['teams','Команды','Фотографии, названия и составы'],
- ['bracket','Турнирная сетка','Раунды, пары команд и счёт'],
+ ['bracket','Турнирная сетка','Визуальный конструктор, прямоугольники и соединения'],
  ['schedule','Расписание','Дата, время, этап и статус каждого матча'],
  ['results','Результаты','Счёт и команды, которые проходят дальше'],
  ['media','Медиа','Галерея, видео и подписи'],
@@ -57,6 +58,6 @@ export function normalize(data) {
  const result=clone(data);result.schemaVersion=1;
  result.site={...clone(defaults),...result.site};
  for(const key of ['logos','colors','fonts','layout','motion','header','footer','ticker']) result.site[key]={...clone(defaults[key]),...result.site[key]};
- for(const season of result.seasons){season.order=season.order||clone(sectionIds);season.content=season.content||{};for(const id of sectionIds)season.content[id]={...clone(contentDefaults[id]),...season.content[id]};for(const game of season.disciplines){game.caption??=game.id==='dota2'?'Пять игроков. Один трон.':'Пять игроков. Одна цель.';game.dayScheduleUrl??='';}}
+ for(const season of result.seasons){season.order=season.order||clone(sectionIds);season.content=season.content||{};for(const id of sectionIds)season.content[id]={...clone(contentDefaults[id]),...season.content[id]};for(const game of season.disciplines){game.caption??=game.id==='dota2'?'Пять игроков. Один трон.':'Пять игроков. Одна цель.';game.dayScheduleUrl??='';game.bracketLayout??=emptyLayout();}}
  return result;
 }
