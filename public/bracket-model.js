@@ -41,6 +41,16 @@ export function connectionPoints(layout,edge){
 }
 export const pathFromPoints=points=>points.map((p,i)=>`${i?'L':'M'}${p.x} ${p.y}`).join(' ');
 export const connectionPath=(layout,edge)=>pathFromPoints(connectionPoints(layout,edge));
+export function contentBounds(layout,padding=40){
+  if(!layout.nodes.length)return {x:0,y:0,width:layout.width,height:layout.height};
+  const points=layout.nodes.flatMap(n=>[{x:n.x,y:n.y},{x:n.x+n.width,y:n.y+n.height}]);
+  for(const edge of layout.edges)points.push(...connectionPoints(layout,edge));
+  const x=Math.floor((Math.min(...points.map(p=>p.x))-padding)/GRID)*GRID;
+  const y=Math.floor((Math.min(...points.map(p=>p.y))-padding)/GRID)*GRID;
+  const right=Math.ceil((Math.max(...points.map(p=>p.x))+padding)/GRID)*GRID;
+  const bottom=Math.ceil((Math.max(...points.map(p=>p.y))+padding)/GRID)*GRID;
+  return {x,y,width:right-x,height:bottom-y};
+}
 export function validateLayout(layout){
   const check=(valid,message)=>{if(!valid)throw new Error(message);};
   check(layout&&typeof layout==='object'&&!Array.isArray(layout),'Неверная структура визуальной сетки.');

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {GRID,SIDES,emptyLayout,snap,freePosition,overlaps,removeNode,portPoint,connectionPoints,connectionPath,validateLayout,eightTeamLayout} from '../public/bracket-model.js';
+import {GRID,SIDES,emptyLayout,snap,freePosition,overlaps,removeNode,portPoint,connectionPoints,connectionPath,contentBounds,validateLayout,eightTeamLayout} from '../public/bracket-model.js';
 const node=(id,x,y,width=240,height=60)=>({id,x,y,width,height,text:id,kind:'team',style:'accent'});
 const edge=(id,from,to,fromSide='right',toSide='left')=>({id,from,to,fromSide,toSide});
 
@@ -50,4 +50,13 @@ test('Graph validation rejects invalid links, unsafe backgrounds, duplicate elem
   for(const change of [g=>g.edges[0].to='missing',g=>g.edges[0].to=g.edges[0].from,g=>g.edges[0].toSide='diagonal',g=>g.nodes[0].x=31,g=>g.nodes[0].x=3200,g=>g.nodes[1].id=g.nodes[0].id,g=>g.edges.push({...g.edges[0],id:'new'}),g=>g.background='javascript:alert(1)',g=>g.nodes[0].text='a'.repeat(501)]){
     const layout=structuredClone(base);change(layout);assert.throws(()=>validateLayout(layout));
   }
+});
+
+test('Public bounds trim empty space while retaining every rectangle, line and margin',()=>{
+  const layout={...emptyLayout(),width:3200,height:2000,nodes:[node('a',1000,1200),node('b',1700,1400)],edges:[edge('ab','a','b','left','left')]},before=structuredClone(layout),bounds=contentBounds(layout);
+  assert.ok(bounds.width<layout.width/2);assert.ok(bounds.height<layout.height/2);assert.ok(bounds.x>0&&bounds.y>0);
+  const points=layout.nodes.flatMap(n=>[{x:n.x,y:n.y},{x:n.x+n.width,y:n.y+n.height}]).concat(connectionPoints(layout,layout.edges[0]));
+  for(const p of points){assert.ok(p.x>=bounds.x+40&&p.x<=bounds.x+bounds.width-40);assert.ok(p.y>=bounds.y+40&&p.y<=bounds.y+bounds.height-40);}
+  assert.deepEqual(layout,before);
+  assert.deepEqual(contentBounds({...emptyLayout(),nodes:[node('single',0,0)]}),{x:-40,y:-40,width:320,height:140});
 });

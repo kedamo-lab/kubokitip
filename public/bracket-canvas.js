@@ -1,4 +1,4 @@
-import {GRID,SIDES,SIDE_NAMES,emptyLayout,snap,clamp,freePosition,overlaps,removeNode,sameConnection,portPoint,pathFromPoints,connectionPath,validateLayout,eightTeamLayout} from './bracket-model.js';
+import {GRID,SIDES,SIDE_NAMES,emptyLayout,snap,clamp,freePosition,overlaps,removeNode,sameConnection,portPoint,pathFromPoints,connectionPath,contentBounds,validateLayout,eightTeamLayout} from './bracket-model.js';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>globalThis.crypto?.randomUUID?.()||'node-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
 const clone=value=>structuredClone(value);
@@ -8,13 +8,15 @@ const linesMarkup=(layout,editable,selected)=>layout.edges.map(edge=>{const d=co
 function applyBackground(stage,value){const url=safeUrl(value);stage.style.backgroundImage=url?`linear-gradient(#080a0b55,#080a0b55),url(${JSON.stringify(url)})`:'';}
 function zoomControls(){return '<div class="bracket-zoom"><button type="button" data-bc="zoom-out" aria-label="Уменьшить сетку">−</button><output data-zoom-label>100%</output><button type="button" data-bc="zoom-in" aria-label="Увеличить сетку">+</button><button type="button" data-bc="fit">Уместить</button></div>';}
 export function renderBracketView(root,layout,label){
-  root.innerHTML=`<div class="bracket-viewer"><div class="bracket-view-toolbar"><span>${esc(label)}</span>${zoomControls()}</div><div class="bracket-viewport" tabindex="0" role="region" aria-label="Турнирная сетка ${esc(label)}. Можно прокручивать и менять масштаб."><div class="bracket-space"><div class="bracket-stage"><svg class="bracket-lines" viewBox="0 0 ${layout.width} ${layout.height}" aria-hidden="true">${linesMarkup(layout,false)}</svg>${layout.nodes.map(n=>nodeMarkup(n,false)).join('')}</div></div></div><p class="bracket-help">Перемещайтесь по схеме прокруткой. Кнопка «Уместить» покажет сетку целиком.</p></div>`;
-  const viewport=root.querySelector('.bracket-viewport'),stage=root.querySelector('.bracket-stage'),space=root.querySelector('.bracket-space');let scale=1,automatic=true;
-  applyBackground(stage,layout.background);stage.style.width=layout.width+'px';stage.style.height=layout.height+'px';
-  const zoom=value=>{scale=clamp(value,.15,1.5);stage.style.transform=`scale(${scale})`;space.style.width=layout.width*scale+'px';space.style.height=layout.height*scale+'px';root.querySelector('[data-zoom-label]').textContent=Math.round(scale*100)+'%';};
-  const fit=()=>zoom(Math.min(1,(Math.max(viewport.clientWidth-24,viewport.clientWidth<600?880:0))/layout.width));
-  const abort=new AbortController();root.addEventListener('click',e=>{const action=e.target.closest('[data-bc]')?.dataset.bc;if(!action)return;automatic=false;if(action==='fit'){zoom(Math.min(1,(viewport.clientWidth-24)/layout.width));viewport.scrollTo(0,0);}else zoom(scale+(action==='zoom-in'?0.1:-0.1));},{signal:abort.signal});
-  const observer=new ResizeObserver(()=>{if(automatic)fit();});observer.observe(viewport);fit();
+  const bounds=contentBounds(layout);
+  root.innerHTML=`<div class="bracket-viewer"><div class="bracket-view-toolbar"><span>${esc(label)}</span>${zoomControls()}</div><div class="bracket-viewport" tabindex="0" role="region" aria-label="Турнирная сетка ${esc(label)}. Можно прокручивать и менять масштаб."><div class="bracket-space"><div class="bracket-stage"><div class="bracket-crop-content" style="left:${-bounds.x}px;top:${-bounds.y}px;width:${layout.width}px;height:${layout.height}px"><svg class="bracket-lines" viewBox="0 0 ${layout.width} ${layout.height}" aria-hidden="true">${linesMarkup(layout,false)}</svg>${layout.nodes.map(n=>nodeMarkup(n,false)).join('')}</div></div></div></div><p class="bracket-help">Перемещайтесь по схеме прокруткой. Кнопка «Уместить» покажет сетку целиком.</p></div>`;
+  const viewport=root.querySelector('.bracket-viewport'),stage=root.querySelector('.bracket-stage'),space=root.querySelector('.bracket-space'),content=root.querySelector('.bracket-crop-content'),toolbar=root.querySelector('.bracket-view-toolbar');let scale=1,automatic=true;
+  applyBackground(content,layout.background);stage.style.width=bounds.width+'px';stage.style.height=bounds.height+'px';
+  const availableWidth=()=>Math.max(1,root.clientWidth);
+  const zoom=value=>{scale=clamp(value,.1,1.5);stage.style.transform=`scale(${scale})`;space.style.width=bounds.width*scale+'px';space.style.height=bounds.height*scale+'px';viewport.style.width=Math.min(availableWidth(),Math.ceil(bounds.width*scale)+26)+'px';toolbar.style.maxWidth=viewport.style.width;root.querySelector('[data-zoom-label]').textContent=Math.round(scale*100)+'%';root.querySelector('.bracket-help').hidden=bounds.width*scale<=availableWidth()-26;};
+  const fit=()=>zoom(Math.min(1,Math.max(availableWidth()-26,availableWidth()<600?Math.min(880,bounds.width):0)/bounds.width));
+  const abort=new AbortController();root.addEventListener('click',e=>{const action=e.target.closest('[data-bc]')?.dataset.bc;if(!action)return;automatic=false;if(action==='fit'){zoom(Math.min(1,(availableWidth()-26)/bounds.width));viewport.scrollTo(0,0);}else zoom(scale+(action==='zoom-in'?0.1:-0.1));},{signal:abort.signal});
+  const observer=new ResizeObserver(()=>{if(automatic)fit();else zoom(scale);});observer.observe(root);fit();
   return ()=>{abort.abort();observer.disconnect();};
 }
 export function mountBracketEditor(root,{value,teams=[],onChange,onNotice=()=>{},canEdit=()=>true,motionEnabled=()=>true,onUndo=()=>{},onRedo=()=>{}}){
